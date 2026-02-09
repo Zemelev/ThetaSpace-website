@@ -1,7 +1,7 @@
 import Header from '@/components/layout/Header';
 import ContactForm from '../components/forms/ContactForm';
 import HeroSection from '../components/HeroSection';
-import LecturePreview from '../components/cards/LecturePreview';
+// import LecturePreview from '../components/cards/LecturePreview';
 
 export default async function Home() {
   // Тут будуть GraphQL запити, поки що статично
