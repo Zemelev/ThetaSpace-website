@@ -80,8 +80,8 @@ export default function ContactForm({
 
   const formLabels: Record<string, string> = {
     club: 'Запис до Клубу',
-    lecture: 'Запис на лекцію',
-    course: 'Запис на курс',
+    lecture: 'Запис на Лекцію',
+    course: 'Запис на Курс',
   };
 
   return (
