@@ -1,9 +1,9 @@
 // Типи для лекцій
-
 export interface Lecture {
   id: string;
   title: string;
   excerpt?: string;
+  slug?: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -54,6 +54,7 @@ export interface Lecture {
 export interface Course {
   id: string;
   title: string;
+  content?: string;
   excerpt?: string;
   slug?: string;
   featuredImage?: {
@@ -73,6 +74,7 @@ export interface Course {
 export interface Mentor {
   id: string;
   title: string;
+  content?: string;
   excerpt?: string;
   slug?: string;
   featuredImage?: {
@@ -86,6 +88,25 @@ export interface Mentor {
     experience?: string;
     specialization?: string;
     socialLinks?: string;
+  };
+}
+
+// Типи для відповідей GraphQL
+export interface LecturesResponse {
+  lectures: {
+    nodes: Lecture[];
+  };
+}
+
+export interface CoursesResponse {
+  courses: {
+    nodes: Course[];
+  };
+}
+
+export interface MentorsResponse {
+  mentors: {
+    nodes: Mentor[];
   };
 }
 

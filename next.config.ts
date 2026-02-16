@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  typescript: {
-    ignoreBuildErrors: true, // Тимчасово, поки не виправите
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  /* config options here */
 };
+
 export default nextConfig;

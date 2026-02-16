@@ -8,7 +8,10 @@ interface ScrollButtonProps {
 
 export default function ScrollButton({ targetId, children, className }: ScrollButtonProps) {
   const handleClick = () => {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(targetId)?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
   return (
