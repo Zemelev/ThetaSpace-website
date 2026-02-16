@@ -8,6 +8,7 @@ import Link from 'next/link';
 interface Lecturer {
   id: string;
   title: string;
+  slug?: string;
   mentorDetails?: {
     position?: string;
   };
@@ -16,6 +17,7 @@ interface Lecturer {
 interface Lecture {
   id: string;
   title: string;
+  slug?: string;
   excerpt?: string;
   featuredImage?: {
     node: {
@@ -45,7 +47,6 @@ export default async function Home() {
   try {
     const data = await fetchGraphQL<LatestLectureResponse>(GET_LATEST_LECTURE);
     latestLecture = data?.lectures?.nodes?.[0] || null;
-    console.log('Latest lecture:', latestLecture); // Для дебагу
   } catch (error) {
     console.error('Error fetching latest lecture:', error);
   }
@@ -90,7 +91,7 @@ export default async function Home() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href={latestLecture ? `/lectures/${latestLecture.id}` : '/lectures'}
+                  href={latestLecture ? `/lectures/${latestLecture.slug || latestLecture.id}` : '/lectures'}
                   className="bg-white text-purple-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors"
                 >
                   Детальніше про лекцію

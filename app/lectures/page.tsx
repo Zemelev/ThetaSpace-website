@@ -20,12 +20,12 @@ export default async function LecturesPage() {
       <Header />
       <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-center mb-12">Лекції та події</h1>
+          <h1 className="text-blue-600 text-4xl font-bold text-center mb-12">Лекції та події</h1>
           
           {lectures.length === 0 ? (
-            <p className="text-center text-gray-500">Наразі немає запланованих лекцій</p>
+            <p className="text-blue-600 text-center text-gray-500">Наразі немає запланованих лекцій</p>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="text-blue-600 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {lectures.map((lecture) => (
                 <div key={lecture.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
                   {lecture.featuredImage?.node?.sourceUrl && (

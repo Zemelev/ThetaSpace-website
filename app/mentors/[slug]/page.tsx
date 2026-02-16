@@ -1,5 +1,5 @@
 import { fetchGraphQL } from '@/lib/graphql-client';
-import { GET_MENTOR_BY_ID } from '@/lib/queries';
+import { GET_MENTOR_BY_SLUG } from '@/lib/queries';
 import { Mentor } from '@/types';
 import Header from '@/components/layout/Header';
 import Link from 'next/link';
@@ -18,11 +18,13 @@ interface MentorResponse {
 export default async function MentorPage({ params }: Props) {
   const { slug } = await params;
   
+  // Декодуємо slug для підтримки кирилиці
+  const decodedSlug = decodeURIComponent(slug);
+  
   let mentor: Mentor | null = null;
   
   try {
-    const id = slug.split('-').pop() || slug;
-    const data = await fetchGraphQL<MentorResponse>(GET_MENTOR_BY_ID, { id });
+    const data = await fetchGraphQL<MentorResponse>(GET_MENTOR_BY_SLUG, { slug: decodedSlug });
     mentor = data?.mentor || null;
   } catch (error) {
     console.error('Error fetching mentor:', error);
@@ -32,12 +34,22 @@ export default async function MentorPage({ params }: Props) {
     notFound();
   }
 
+  // Функція для парсингу соціальних посилань
+  const parseSocialLinks = (socialLinks?: string) => {
+    if (!socialLinks) return [];
+    // Розділяємо посилання за комами або новими рядками
+    return socialLinks.split(/[,\n]/).map(link => link.trim()).filter(link => link);
+  };
+
+  const socialLinks = parseSocialLinks(mentor.mentorDetails?.socialLinks);
+
   return (
     <>
       <Header />
-      <main className="py-16 bg-gray-50">
+      <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {/* Навігація назад */}
             <Link 
               href="/mentors"
               className="inline-flex items-center text-purple-600 mb-6 hover:underline"
@@ -61,25 +73,24 @@ export default async function MentorPage({ params }: Props) {
                 </div>
                 
                 <div className="md:w-2/3 p-8">
-                  <h1 className="text-3xl font-bold mb-2">{mentor.title}</h1>
+                  <h1 className="text-purple-600 text-3xl font-bold mb-2">{mentor.title}</h1>
                   <p className="text-xl text-purple-600 mb-4">{mentor.mentorDetails?.position || 'Супервайзер'}</p>
                   
-                  {mentor.mentorDetails?.experience && (
-                    <p className="text-gray-600 mb-4">
-                      <span className="font-semibold">Досвід:</span> {mentor.mentorDetails.experience} років
-                    </p>
-                  )}
-                  
-                  {mentor.mentorDetails?.specialization && (
-                    <p className="text-gray-600 mb-4">
-                      <span className="font-semibold">Спеціалізація:</span> {mentor.mentorDetails.specialization}
-                    </p>
-                  )}
-                  
-                  {mentor.mentorDetails?.socialLinks && (
+                  {socialLinks.length > 0 && (
                     <div className="flex space-x-4 mt-6">
-                      <span className="text-gray-500">Соцмережі:</span>
-                      {/* Тут можна додати парсинг посилань */}
+                      {socialLinks.map((link, index) => (
+                        <a 
+                          key={index}
+                          href={link.startsWith('http') ? link : `https://${link}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-500 hover:text-purple-600 transition"
+                        >
+                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                          </svg>
+                        </a>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -87,10 +98,10 @@ export default async function MentorPage({ params }: Props) {
               
               {(mentor.content || mentor.mentorDetails?.shortBio) && (
                 <div className="p-8 border-t">
-                  <h2 className="text-xl font-bold mb-4">Про ментора</h2>
+                  <h2 className="text-green-600 text-xl font-bold mb-4">Про ментора</h2>
                   <div className="prose max-w-none">
                     {mentor.mentorDetails?.shortBio && (
-                      <p className="mb-4">{mentor.mentorDetails.shortBio}</p>
+                      <p className="text-green-600 mb-4">{mentor.mentorDetails.shortBio}</p>
                     )}
                     {mentor.content && <div dangerouslySetInnerHTML={{ __html: mentor.content }} />}
                   </div>

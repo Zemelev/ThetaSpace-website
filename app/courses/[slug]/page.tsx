@@ -1,5 +1,5 @@
 import { fetchGraphQL } from '@/lib/graphql-client';
-import { GET_COURSE_BY_ID } from '@/lib/queries';
+import { GET_COURSE_BY_SLUG } from '@/lib/queries';
 import { Course } from '@/types';
 import Header from '@/components/layout/Header';
 import ContactForm from '@/components/forms/ContactForm';
@@ -19,11 +19,13 @@ interface CourseResponse {
 export default async function CoursePage({ params }: Props) {
   const { slug } = await params;
   
+  // Декодуємо slug для підтримки кирилиці
+  const decodedSlug = decodeURIComponent(slug);
+  
   let course: Course | null = null;
   
   try {
-    const id = slug.split('-').pop() || slug;
-    const data = await fetchGraphQL<CourseResponse>(GET_COURSE_BY_ID, { id });
+    const data = await fetchGraphQL<CourseResponse>(GET_COURSE_BY_SLUG, { slug: decodedSlug });
     course = data?.course || null;
   } catch (error) {
     console.error('Error fetching course:', error);
@@ -33,12 +35,21 @@ export default async function CoursePage({ params }: Props) {
     notFound();
   }
 
+  // Функція для відображення формату
+  const renderFormat = (format: any) => {
+    if (Array.isArray(format)) {
+      return format.join(', ');
+    }
+    return format || 'Формат уточнюється';
+  };
+
   return (
     <>
       <Header />
-      <main className="py-16 bg-gray-50">
+      <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {/* Навігація назад */}
             <Link 
               href="/courses"
               className="inline-flex items-center text-green-600 mb-6 hover:underline"
@@ -59,7 +70,7 @@ export default async function CoursePage({ params }: Props) {
               )}
               
               <div className="p-8">
-                <h1 className="text-4xl font-bold mb-6">{course.title}</h1>
+                <h1 className="text-green-600 text-4xl font-bold mb-6">{course.title}</h1>
                 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                   <div className="space-y-4">
@@ -72,7 +83,7 @@ export default async function CoursePage({ params }: Props) {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Тривалість</p>
-                          <p className="font-semibold">{course.courseDetails.duration}</p>
+                          <p className="text-green-600 font-semibold">{course.courseDetails.duration}</p>
                         </div>
                       </div>
                     )}
@@ -86,7 +97,7 @@ export default async function CoursePage({ params }: Props) {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Формат</p>
-                          <p className="font-semibold">{course.courseDetails.format}</p>
+                          <p className="text-green-600 font-semibold">{renderFormat(course.courseDetails.format)}</p>
                         </div>
                       </div>
                     )}
@@ -94,7 +105,9 @@ export default async function CoursePage({ params }: Props) {
                   
                   <div className="bg-gray-50 p-6 rounded-xl">
                     <p className="text-sm text-gray-500 mb-2">Вартість курсу</p>
-                    <p className="text-3xl font-bold text-green-600 mb-4">{course.courseDetails?.coursePrice || 'Ціна за запитом'}</p>
+                    <p className="text-3xl font-bold text-green-600 mb-4">
+                      {course.courseDetails?.coursePrice || 'Ціна за запитом'}
+                    </p>
                   </div>
                 </div>
                 
@@ -107,20 +120,19 @@ export default async function CoursePage({ params }: Props) {
                 
                 {course.courseDetails?.includes && (
                   <div className="mb-8">
-                    <h3 className="text-xl font-bold mb-4">Що включено</h3>
+                    <h3 className="text-blue-600 text-xl font-bold mb-4">Що включено</h3>
                     <div className="bg-gray-50 p-6 rounded-lg">
-                      <p className="whitespace-pre-line">{course.courseDetails.includes}</p>
+                      <p className="text-blue-600 whitespace-pre-line">{course.courseDetails.includes}</p>
                     </div>
                   </div>
                 )}
                 
                 {/* Форма запису */}
                 <div className="mt-8 pt-8 border-t">
-                  <h2 className="text-2xl font-bold mb-6 text-center">Записатися на курс</h2>
                   <ContactForm 
                     type="course" 
                     courseId={course.id} 
-                    source={`course_${course.id}`}
+                    source={`course_${course.slug || course.id}`}
                   />
                 </div>
               </div>

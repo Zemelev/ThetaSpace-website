@@ -9,7 +9,7 @@ export default function ClubPage() {
       <main className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl font-bold text-center mb-8">Клуб живого спілкування</h1>
+            <h1 className="text-blue-600 text-4xl font-bold text-center mb-8">Клуб живого спілкування</h1>
             
             <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
               <div className="md:flex">
@@ -44,39 +44,38 @@ export default function ClubPage() {
                 </div>
                 
                 <div className="md:w-1/2 p-8">
-                  <h3 className="text-xl font-bold mb-4">Розклад зустрічей</h3>
-                  <div className="space-y-3 mb-6">
+                  <h3 className="text-blue-600 text-xl font-bold mb-4">Розклад зустрічей</h3>
+                  <div className=" text-blue-600 space-y-3 mb-6">
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <span className="font-semibold">Понеділок</span>
-                      <span>19:00 - 21:00</span>
+                      <span>14:00 - 20:00</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <span className="font-semibold">Вівторок</span>
-                      <span>19:00 - 21:00</span>
+                      <span>14:00 - 20:00</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <span className="font-semibold">Середа</span>
-                      <span>19:00 - 21:00</span>
+                      <span>14:00 - 20:00</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <span className="font-semibold">Четвер</span>
-                      <span>19:00 - 21:00</span>
+                      <span>14:00 - 20:00</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <span className="font-semibold">П'ятниця</span>
-                      <span>19:00 - 21:00</span>
+                      <span>14:00 - 20:00</span>
                     </div>
                   </div>
                   
                   <p className="text-sm text-gray-500 mb-4">
-                    * Після клубу по п'ятницях відбуваються лекції у форматі міні-вечірок
+                    * Після клубу по п'ятницях відбуваються лекції
                   </p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 text-center">Записатися до клубу</h2>
               <ContactForm type="club" source="club_page" />
             </div>
           </div>

@@ -42,29 +42,10 @@ export default async function LecturePage({ params }: Props) {
     notFound(); // Якщо лекцію не знайдено, показуємо 404
   }
 
-// export default async function LecturePage({ params }: Props) {
-//   const { slug } = await params;
-  
-//   let lecture: Lecture | null = null;
-  
-//   try {
-//     // Використовуємо slug без змін
-//     const data = await fetchGraphQL<LectureResponse>(GET_LECTURE_BY_SLUG, { slug });
-//     lecture = data?.lecture || null;
-    
-//     console.log('Lecture data:', lecture); // Для дебагу
-//   } catch (error) {
-//     console.error('Error fetching lecture:', error);
-//   }
-  
-//   if (!lecture) {
-//     notFound();
-//   }
-
   return (
     <>
       <Header />
-      <main className="py-16 bg-gray-50">
+      <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Навігація назад */}
@@ -78,10 +59,8 @@ export default async function LecturePage({ params }: Props) {
               Назад до лекцій
             </Link>
 
-            {/* Заголовок */}
-            <h1 className="text-4xl font-bold mb-6">{lecture.title}</h1>
+            <h1 className="text-green-600 text-4xl font-bold mb-6">{lecture.title}</h1>
             
-            {/* Деталі лекції */}
             <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
@@ -104,7 +83,7 @@ export default async function LecturePage({ params }: Props) {
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Дата та час</p>
-                        <p className="font-semibold">{formatDate(lecture.lectureDetails.dateTime)}</p>
+                        <p className="text-blue-600 font-semibold">{formatDate(lecture.lectureDetails.dateTime)}</p>
                       </div>
                     </div>
                   )}
@@ -119,7 +98,7 @@ export default async function LecturePage({ params }: Props) {
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Місце проведення</p>
-                        <p className="font-semibold">{lecture.lectureDetails.location}</p>
+                        <p className="text-green-600 font-semibold">{lecture.lectureDetails.location}</p>
                       </div>
                     </div>
                   )}
@@ -137,7 +116,7 @@ export default async function LecturePage({ params }: Props) {
                           <Link 
                             key={lecturer.id}
                             href={`/mentors/${lecturer.slug || lecturer.id}`}
-                            className="font-semibold hover:text-purple-600 transition block"
+                            className="text-purple-600 font-semibold hover:text-purple-600 transition block"
                           >
                             {lecturer.title}
                           </Link>
@@ -160,7 +139,6 @@ export default async function LecturePage({ params }: Props) {
                 </div>
               </div>
               
-              {/* Опис */}
               {lecture.content && (
                 <div className="mt-8 prose max-w-none">
                   <h3 className="text-xl font-bold mb-4">Про лекцію</h3>
@@ -169,9 +147,7 @@ export default async function LecturePage({ params }: Props) {
               )}
             </div>
             
-            {/* Форма запису */}
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6 text-center">Записатися на лекцію</h2>
               <ContactForm 
                 type="lecture" 
                 lectureId={lecture.id} 
