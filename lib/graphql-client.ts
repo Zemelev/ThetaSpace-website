@@ -4,6 +4,8 @@ if (!endpoint) {
   throw new Error('NEXT_PUBLIC_WP_GRAPHQL_URL is not defined');
 }
 
+const GRAPHQL_ENDPOINT: string = endpoint;
+
 interface GraphQLResponse<T> {
   data: T;
   errors?: Array<{ message: string; locations?: any; path?: any }>;
@@ -14,7 +16,7 @@ export async function fetchGraphQL<T = any>(
   variables: Record<string, any> = {}
 ): Promise<T> {
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
