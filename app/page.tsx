@@ -79,7 +79,7 @@ export default async function Home() {
             <div className="max-w-md mx-auto">
               <ContactForm 
                 type="lecture" 
-                lectureId={latestLecture?.id} 
+                lectureId={latestLecture?.id || null} 
                 source="homepage_lecture"
               />
             </div>

@@ -6,7 +6,7 @@ if (!endpoint) {
 
 interface GraphQLResponse<T> {
   data: T;
-  errors?: Array<{ message: string }>;
+  errors?: Array<{ message: string; locations?: any; path?: any }>;
 }
 
 export async function fetchGraphQL<T = any>(
@@ -41,6 +41,19 @@ export async function fetchGraphQL<T = any>(
   } catch (error) {
     console.error('Fetch GraphQL error:', error);
     throw error;
+  }
+}
+
+// Додаткова функція для перевірки з'єднання
+export async function testGraphQLConnection() {
+  try {
+    const testQuery = `{ __typename }`;
+    await fetchGraphQL(testQuery);
+    console.log('✅ GraphQL connection successful');
+    return true;
+  } catch (error) {
+    console.error('❌ GraphQL connection failed:', error);
+    return false;
   }
 }
 

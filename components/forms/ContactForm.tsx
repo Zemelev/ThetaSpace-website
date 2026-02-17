@@ -4,8 +4,8 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 
 interface ContactFormProps {
   type?: 'club' | 'lecture' | 'course';
-  lectureId?: string;
-  courseId?: string;
+  lectureId?: string | null;
+  courseId?: string | null;
   source?: string;
 }
 
@@ -57,8 +57,8 @@ export default function ContactForm({
           ...formData,
           type,
           source,
-          lecture_id: lectureId,
-          course_id: courseId,
+          lecture_id: lectureId || undefined,
+          course_id: courseId || undefined,
         }),
       });
 
