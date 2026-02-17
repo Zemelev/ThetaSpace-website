@@ -1,6 +1,6 @@
 import { fetchGraphQL } from '@/lib/graphql-client';
 import { GET_COURSE_BY_SLUG } from '@/lib/queries';
-import { Course } from '@/types';
+import { CourseResponse } from '@/types';
 import Header from '@/components/layout/Header';
 import ContactForm from '@/components/forms/ContactForm';
 import Link from 'next/link';
@@ -12,17 +12,11 @@ interface Props {
   }>;
 }
 
-interface CourseResponse {
-  course: Course | null;
-}
-
 export default async function CoursePage({ params }: Props) {
   const { slug } = await params;
-  
-  // Декодуємо slug для підтримки кирилиці
   const decodedSlug = decodeURIComponent(slug);
   
-  let course: Course | null = null;
+  let course: CourseResponse['course'] = null;
   
   try {
     const data = await fetchGraphQL<CourseResponse>(GET_COURSE_BY_SLUG, { slug: decodedSlug });
@@ -35,7 +29,6 @@ export default async function CoursePage({ params }: Props) {
     notFound();
   }
 
-  // Функція для відображення формату
   const renderFormat = (format: any) => {
     if (Array.isArray(format)) {
       return format.join(', ');
@@ -49,7 +42,6 @@ export default async function CoursePage({ params }: Props) {
       <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Навігація назад */}
             <Link 
               href="/courses"
               className="inline-flex items-center text-green-600 mb-6 hover:underline"
@@ -61,16 +53,22 @@ export default async function CoursePage({ params }: Props) {
             </Link>
 
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              {course.featuredImage?.node?.sourceUrl && (
+              {course.courseDetails?.courseImage?.node?.sourceUrl ? (
+                <img 
+                  src={course.courseDetails.courseImage.node.sourceUrl}
+                  alt={course.courseDetails.courseImage.node.altText || course.title}
+                  className="w-full h-64 object-cover"
+                />
+              ) : course.featuredImage?.node?.sourceUrl ? (
                 <img 
                   src={course.featuredImage.node.sourceUrl}
                   alt={course.title}
                   className="w-full h-64 object-cover"
                 />
-              )}
+              ) : null}
               
               <div className="p-8">
-                <h1 className="text-green-600 text-4xl font-bold mb-6">{course.title}</h1>
+                <h1 className="text-4xl font-bold mb-6">{course.title}</h1>
                 
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                   <div className="space-y-4">
@@ -83,7 +81,7 @@ export default async function CoursePage({ params }: Props) {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Тривалість</p>
-                          <p className="text-green-600 font-semibold">{course.courseDetails.duration}</p>
+                          <p className="font-semibold">{course.courseDetails.duration}</p>
                         </div>
                       </div>
                     )}
@@ -97,7 +95,7 @@ export default async function CoursePage({ params }: Props) {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500">Формат</p>
-                          <p className="text-green-600 font-semibold">{renderFormat(course.courseDetails.format)}</p>
+                          <p className="font-semibold">{renderFormat(course.courseDetails.format)}</p>
                         </div>
                       </div>
                     )}
@@ -120,15 +118,15 @@ export default async function CoursePage({ params }: Props) {
                 
                 {course.courseDetails?.includes && (
                   <div className="mb-8">
-                    <h3 className="text-blue-600 text-xl font-bold mb-4">Що включено</h3>
+                    <h3 className="text-xl font-bold mb-4">Що включено</h3>
                     <div className="bg-gray-50 p-6 rounded-lg">
-                      <p className="text-blue-600 whitespace-pre-line">{course.courseDetails.includes}</p>
+                      <p className="whitespace-pre-line">{course.courseDetails.includes}</p>
                     </div>
                   </div>
                 )}
                 
-                {/* Форма запису */}
                 <div className="mt-8 pt-8 border-t">
+                  <h2 className="text-2xl font-bold mb-6 text-center">Записатися на курс</h2>
                   <ContactForm 
                     type="course" 
                     courseId={course.id} 

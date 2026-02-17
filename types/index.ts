@@ -1,9 +1,47 @@
-// Типи для лекцій
+// types/index.ts
+
+export interface Image {
+  id?: number;
+  url: string;
+  alt?: string;
+  title?: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+export interface MediaItemNode {
+  sourceUrl: string;
+  altText?: string;
+  title?: string;
+  mediaDetails?: {
+    width?: number;
+    height?: number;
+  };
+}
+
+export interface MediaItemConnectionEdge {
+  node: MediaItemNode;  
+}
+
+export interface Lecturer {
+  id: string;
+  title: string;
+  slug?: string;
+  mentorDetails?: {
+    position?: string;
+    shortBio?: string;
+    mentor_photo?: Image;
+  };
+}
+
 export interface Lecture {
   id: string;
   title: string;
+  content?: string;
   excerpt?: string;
   slug?: string;
+  uri?: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -14,49 +52,20 @@ export interface Lecture {
     dateTime?: string;
     location?: string;
     price?: string;
+    lectureImage?: MediaItemConnectionEdge;
     lecturerName?: {
-      node: {
-        id: string;
-        title: string;
-        mentorDetails?: {
-          position?: string;
-        };
-      };
+      nodes?: Lecturer[];
     };
   };
 }
 
-// export interface Lecture {
-//   id: string;
-//   title: string;
-//   excerpt?: string;
-//   slug?: string;
-//   featuredImage?: {
-//     node: {
-//       sourceUrl: string;
-//       altText?: string;
-//     };
-//   };
-//   lectureDetails?: {
-//     dateTime?: string;
-//     location?: string;
-//     price?: string;
-//     status?: string;
-//     maxAttendees?: number;
-//     registered?: number;
-//     lecturerName?: {
-//       node: Mentor;
-//     };
-//   };
-// }
-
-// Типи для курсів
 export interface Course {
   id: string;
   title: string;
   content?: string;
   excerpt?: string;
   slug?: string;
+  uri?: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -65,18 +74,19 @@ export interface Course {
   courseDetails?: {
     duration?: string;
     coursePrice?: string;
-    format?: string;
+    format?: any;
     includes?: string;
+    courseImage?: MediaItemConnectionEdge;
   };
 }
 
-// Типи для менторів
 export interface Mentor {
   id: string;
   title: string;
   content?: string;
   excerpt?: string;
   slug?: string;
+  uri?: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -85,13 +95,12 @@ export interface Mentor {
   mentorDetails?: {
     position?: string;
     shortBio?: string;
-    experience?: string;
-    specialization?: string;
     socialLinks?: string;
+    mentorPhoto?: MediaItemConnectionEdge;
   };
 }
 
-// Типи для відповідей GraphQL
+// Відповіді GraphQL
 export interface LecturesResponse {
   lectures: {
     nodes: Lecture[];
@@ -110,8 +119,19 @@ export interface MentorsResponse {
   };
 }
 
-// Типи для відповідей GraphQL
+export interface LectureResponse {
+  lecture: Lecture | null;
+}
+
+export interface CourseResponse {
+  course: Course | null;
+}
+
+export interface MentorResponse {
+  mentor: Mentor | null;
+}
+
 export interface GraphQLResponse<T> {
   data: T;
-  errors?: Array<{ message: string }>;
+  errors?: Array<{ message: string; locations?: any; path?: any }>;
 }

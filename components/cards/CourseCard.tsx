@@ -7,8 +7,14 @@ interface CourseCardProps {
   slug?: string;
   duration?: string;
   price?: string;
-  format?: string;
-  imageUrl?: string;
+  format?: any;
+  featuredImageUrl?: string;
+  courseImage?: {
+     node: {
+      sourceUrl: string;
+      altText?: string;
+    };
+  };
 }
 
 export default function CourseCard({
@@ -19,14 +25,24 @@ export default function CourseCard({
   duration,
   price,
   format,
-  imageUrl,
+  featuredImageUrl,
+  courseImage,
 }: CourseCardProps) {
+const displayImage = courseImage?.node?.sourceUrl || featuredImageUrl;
+
+  const renderFormat = (format: any) => {
+    if (Array.isArray(format)) {
+      return format.join(', ');
+    }
+    return format || '';
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-      {imageUrl && (
+      {displayImage && (
         <img 
-          src={imageUrl}
-          alt={title}
+          src={displayImage}
+          alt={courseImage?.node?.altText || title}
           className="w-full h-48 object-cover"
         />
       )}
@@ -37,7 +53,7 @@ export default function CourseCard({
           </svg>
         </div>
         
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
         {excerpt && <p className="text-gray-600 mb-4 line-clamp-2">{excerpt}</p>}
         
         <div className="space-y-2 text-gray-600 mb-4">
@@ -55,7 +71,7 @@ export default function CourseCard({
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
-              <span className="text-sm">{format}</span>
+              <span className="text-sm">{renderFormat(format)}</span>
             </div>
           )}
           

@@ -9,7 +9,13 @@ interface LectureCardProps {
   dateTime?: string;
   location?: string;
   price?: string;
-  imageUrl?: string;
+  featuredImageUrl?: string;
+  lectureImage?: {
+    node: {
+      sourceUrl: string;
+      altText?: string;
+    };
+  };
 }
 
 export default function LectureCard({
@@ -20,19 +26,22 @@ export default function LectureCard({
   dateTime,
   location,
   price,
-  imageUrl,
+  featuredImageUrl,
+  lectureImage,
 }: LectureCardProps) {
+  const displayImage = lectureImage?.node?.sourceUrl || featuredImageUrl;
+
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-      {imageUrl && (
+      {displayImage && (
         <img 
-          src={imageUrl}
-          alt={title}
+          src={displayImage}
+          alt={lectureImage?.node?.altText || title}
           className="w-full h-48 object-cover"
         />
       )}
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <h3 className="text-xl font-bold mb-2 line-clamp-2">{title}</h3>
         {excerpt && <p className="text-gray-600 mb-4 line-clamp-2">{excerpt}</p>}
         
         <div className="space-y-2 text-gray-600 mb-4">

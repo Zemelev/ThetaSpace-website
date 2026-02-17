@@ -1,7 +1,7 @@
 import { fetchGraphQL } from '@/lib/graphql-client';
-import { GET_LECTURE_BY_SLUG } from '@/lib/queries'; // Змінено імпорт
+import { GET_LECTURE_BY_SLUG } from '@/lib/queries';
 import { formatDate } from '@/utils/dateUtils';
-import { Lecture } from '@/types';
+import { LectureResponse } from '@/types';
 import Header from '@/components/layout/Header';
 import ContactForm from '@/components/forms/ContactForm';
 import Link from 'next/link';
@@ -13,33 +13,21 @@ interface Props {
   }>;
 }
 
-interface LectureResponse {
-  lecture: Lecture | null;
-}
-
 export default async function LecturePage({ params }: Props) {
   const { slug } = await params;
-
-  // 👇 Декодуємо slug 
   const decodedSlug = decodeURIComponent(slug);
   
-  let lecture: Lecture | null = null;
+  let lecture: LectureResponse['lecture'] = null;
   
   try {
-    // 👇 Використовуємо slug без змін, як він є в URL
     const data = await fetchGraphQL<LectureResponse>(GET_LECTURE_BY_SLUG, { slug: decodedSlug });
     lecture = data?.lecture || null;
-    
-      // Для діагностики 
-    console.log('Requested slug:', slug);
-    console.log('Decoded slug:', decodedSlug);
-    console.log('Fetched lecture:', lecture);
   } catch (error) {
     console.error('Error fetching lecture:', error);
   }
   
   if (!lecture) {
-    notFound(); // Якщо лекцію не знайдено, показуємо 404
+    notFound();
   }
 
   return (
@@ -48,7 +36,6 @@ export default async function LecturePage({ params }: Props) {
       <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Навігація назад */}
             <Link 
               href="/lectures"
               className="inline-flex items-center text-blue-600 mb-6 hover:underline"
@@ -59,18 +46,24 @@ export default async function LecturePage({ params }: Props) {
               Назад до лекцій
             </Link>
 
-            <h1 className="text-green-600 text-4xl font-bold mb-6">{lecture.title}</h1>
+            <h1 className="text-4xl font-bold mb-6">{lecture.title}</h1>
             
             <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  {lecture.featuredImage?.node?.sourceUrl && (
+                  {lecture.lectureDetails?.lectureImage?.node?.sourceUrl ? (
+                    <img 
+                      src={lecture.lectureDetails.lectureImage.node.sourceUrl}
+                      alt={lecture.lectureDetails.lectureImage.node.altText || lecture.title}
+                      className="w-full rounded-lg"
+                    />
+                  ) : lecture.featuredImage?.node?.sourceUrl ? (
                     <img 
                       src={lecture.featuredImage.node.sourceUrl}
                       alt={lecture.title}
                       className="w-full rounded-lg"
                     />
-                  )}
+                  ) : null}
                 </div>
                 
                 <div className="space-y-4">
@@ -83,7 +76,7 @@ export default async function LecturePage({ params }: Props) {
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Дата та час</p>
-                        <p className="text-blue-600 font-semibold">{formatDate(lecture.lectureDetails.dateTime)}</p>
+                        <p className="font-semibold">{formatDate(lecture.lectureDetails.dateTime)}</p>
                       </div>
                     </div>
                   )}
@@ -98,7 +91,7 @@ export default async function LecturePage({ params }: Props) {
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Місце проведення</p>
-                        <p className="text-green-600 font-semibold">{lecture.lectureDetails.location}</p>
+                        <p className="font-semibold">{lecture.lectureDetails.location}</p>
                       </div>
                     </div>
                   )}
@@ -116,7 +109,7 @@ export default async function LecturePage({ params }: Props) {
                           <Link 
                             key={lecturer.id}
                             href={`/mentors/${lecturer.slug || lecturer.id}`}
-                            className="text-purple-600 font-semibold hover:text-purple-600 transition block"
+                            className="font-semibold hover:text-purple-600 transition block"
                           >
                             {lecturer.title}
                           </Link>
@@ -148,6 +141,7 @@ export default async function LecturePage({ params }: Props) {
             </div>
             
             <div className="bg-white rounded-xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold mb-6 text-center">Записатися на лекцію</h2>
               <ContactForm 
                 type="lecture" 
                 lectureId={lecture.id} 
