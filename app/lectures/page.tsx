@@ -16,7 +16,7 @@ export default async function LecturesPage() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="py-16 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold text-center mb-12">Лекції та події</h1>

@@ -5,6 +5,7 @@ import { GET_LATEST_LECTURE } from '@/lib/queries';
 import { formatDate } from '@/utils/dateUtils';
 import { LecturesResponse } from '@/types';
 import Link from 'next/link';
+import JsonLd from '../components/JsonLd';
 
 export default async function Home() {
   let latestLecture: LecturesResponse['lectures']['nodes'][0] | null = null;
@@ -18,7 +19,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       
       <main>
         {/* Блок 1: Найближча лекція */}
@@ -199,13 +200,70 @@ export default async function Home() {
             </Link>
           </div>
         </section>
+
+        {/* Блок 5: Instagram */}
+        <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl p-4">
+                <svg className="w-full h-full text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+              </div>
+              
+              <h2 className="text-gray-600 text-3xl md:text-4xl font-bold mb-4">
+                Слідкуйте за нами в Instagram
+              </h2>
+              
+              <p className="text-gray-600 text-lg mb-8">
+                Анонси подій, фото з зустрічей та корисні поради від наших менторів
+              </p>
+              
+              <a
+                href="https://www.instagram.com/theta_space_club?igsh=MWl2MGJudG00ZXZqNg=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full font-semibold hover:opacity-90 transition"
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+                @theta_space_ua
+              </a>
+            </div>
+          </div>
+        </section>
+           <JsonLd
+              data={{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "ThetaSpace",
+                "url": "https://www.theta-space.org",
+                "logo": "https://www.theta-space.org/images/logo.png",
+                "sameAs": [
+                  "https://www.instagram.com/theta_space_club?igsh=MWl2MGJudG00ZXZqNg=="
+                ],
+                "description": "Простір для живого спілкування, лекцій та курсів",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Київ",
+                  "addressCountry": "UA"
+                },
+                "founder": {
+                  "@type": "Person",
+                  "name": "Команда ThetaSpace"
+                },
+                "foundingDate": "2024", // 
+                "email": "info@theta-space.org" //
+              }}
+            />     
       </main>
 
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Live Club</h3>
+              <h3 className="text-xl font-bold mb-4">ThetaSpace</h3>
               <p className="text-gray-400">Простір для живого спілкування, розвитку та підтримки</p>
             </div>
             <div>
@@ -221,14 +279,24 @@ export default async function Home() {
             <div>
               <h4 className="font-semibold mb-4">Контакти</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>Телефон: +380 XX XXX XX XX</li>
-                <li>Email: info@theta-space.org</li>
-                <li>Instagram: @liveclub</li>
-              </ul>
+                 <li className="flex items-center space-x-2">
+                  <a 
+                    href="https://www.instagram.com/theta_space_club?igsh=MWl2MGJudG00ZXZqNg==" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center hover:text-pink-400 transition"
+                  >
+                          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                    Instagram
+                  </a>
+                </li>
+              </ul>    
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-            <p>© {new Date().getFullYear()} Live Club. Всі права захищені</p>
+            <p>© {new Date().getFullYear()} ThetaSpace. Всі права захищені</p>
           </div>
         </div>
       </footer>

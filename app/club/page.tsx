@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function ClubPage() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
