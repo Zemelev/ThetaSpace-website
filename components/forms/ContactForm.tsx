@@ -21,11 +21,17 @@ interface SubmitResult {
   message: string;
 }
 
-export default function ContactForm({ 
-  type = 'club', 
-  lectureId = null, 
-  courseId = null, 
-  source = 'website' 
+const LABELS: Record<string, string> = {
+  club: 'Запис до клубу',
+  lecture: 'Запис на лекцію',
+  course: 'Запис на курс',
+};
+
+export default function ContactForm({
+  type = 'club',
+  lectureId = null,
+  courseId = null,
+  source = 'website',
 }: ContactFormProps) {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -33,9 +39,8 @@ export default function ContactForm({
     email: '',
     additional_info: '',
   });
-  
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitResult, setSubmitResult] = useState<SubmitResult | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [result, setResult] = useState<SubmitResult | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -45,308 +50,224 @@ export default function ContactForm({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitResult(null);
+    setResult(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WP_REST_URL}/liveclub/v1/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          type,
-          source,
-          lecture_id: lectureId || undefined,
-          course_id: courseId || undefined,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_WP_REST_URL}/liveclub/v1/submit`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formData,
+            type,
+            source,
+            lecture_id: lectureId || undefined,
+            course_id: courseId || undefined,
+          }),
+        }
+      );
+      const data = await response.json();
 
-      const result = await response.json();
-
-      if (result.success) {
-        setSubmitResult({ type: 'success', message: result.message });
+      if (data.success) {
+        setResult({ type: 'success', message: data.message });
         setFormData({ name: '', phone: '', email: '', additional_info: '' });
       } else {
-        setSubmitResult({ type: 'error', message: result.message || 'Помилка відправки' });
+        setResult({ type: 'error', message: data.message || 'Помилка відправки' });
       }
-    } catch (error) {
-      console.error('Submit error:', error);
-      setSubmitResult({ type: 'error', message: 'Помилка з\'єднання' });
+    } catch {
+      setResult({ type: 'error', message: 'Помилка з\'єднання' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const formLabels: Record<string, string> = {
-    club: 'Запис до Клубу',
-    lecture: 'Запис на Лекцію',
-    course: 'Запис на Курс',
-  };
-
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
-      <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        {formLabels[type] || 'Форма запису'}
-      </h3>
+    <div className="cf-wrap">
+      <p className="cf-title ts-label">{LABELS[type] || 'Форма запису'}</p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            Ім'я *
-          </label>
+      <form onSubmit={handleSubmit} className="cf-form" noValidate>
+
+        <div className="ts-field">
+          <label htmlFor="cf-name" className="ts-field-label">Ім'я *</label>
           <input
+            id="cf-name"
             type="text"
-            id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             placeholder="Ваше ім'я"
+            className="ts-input"
           />
         </div>
 
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-            Телефон *
-          </label>
+        <div className="ts-field">
+          <label htmlFor="cf-phone" className="ts-field-label">Телефон *</label>
           <input
+            id="cf-phone"
             type="tel"
-            id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             placeholder="+380 XX XXX XX XX"
+            className="ts-input"
           />
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
+        <div className="ts-field">
+          <label htmlFor="cf-email" className="ts-field-label">Email</label>
           <input
+            id="cf-email"
             type="email"
-            id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             placeholder="email@example.com"
+            className="ts-input"
           />
         </div>
 
-        <div>
-          <label htmlFor="additional_info" className="block text-sm font-medium text-gray-700 mb-1">
-            Коментар або питання
-          </label>
+        <div className="ts-field">
+          <label htmlFor="cf-comment" className="ts-field-label">Коментар або питання</label>
           <textarea
-            id="additional_info"
+            id="cf-comment"
             name="additional_info"
             value={formData.additional_info}
             onChange={handleChange}
-            rows={3}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            rows={4}
             placeholder="Ваш коментар..."
+            className="ts-input cf-textarea"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
-            isSubmitting
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
-          }`}
+          className={`ts-btn ts-btn-primary cf-submit${isSubmitting ? ' cf-submit--loading' : ''}`}
         >
-          {isSubmitting ? 'Відправляємо...' : 'Відправити заявку'}
+          {isSubmitting ? (
+            <span className="cf-spinner-row">
+              <span className="cf-spinner" />
+              Відправляємо...
+            </span>
+          ) : (
+            'Відправити заявку'
+          )}
         </button>
       </form>
 
-      {submitResult && (
-        <div className={`mt-4 p-3 rounded-lg ${
-          submitResult.type === 'success' 
-            ? 'bg-green-50 text-green-800 border border-green-200' 
-            : 'bg-red-50 text-red-800 border border-red-200'
-        }`}>
-          {submitResult.message}
+      {result && (
+        <div className={`cf-result cf-result--${result.type}`}>
+          <span className="cf-result-icon">
+            {result.type === 'success' ? '✓' : '✕'}
+          </span>
+          {result.message}
         </div>
       )}
 
-      <p className="mt-4 text-xs text-gray-500 text-center">
-        Натискаючи "Відправити заявку", ви погоджуєтесь з обробкою ваших даних
+      <p className="cf-disclaimer">
+        Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних
       </p>
+
+      <style>{`
+        .cf-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .cf-title {
+          margin-bottom: 28px;
+        }
+
+        .cf-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .cf-textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        .cf-submit {
+          width: 100%;
+          text-align: center;
+          margin-top: 8px;
+          padding: 16px !important;
+          font-size: 12px !important;
+        }
+
+        .cf-submit--loading {
+          opacity: 0.7;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+
+        .cf-spinner-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        .cf-spinner {
+          width: 14px;
+          height: 14px;
+          border: 2px solid rgba(13,12,10,0.3);
+          border-top-color: var(--ts-bg);
+          border-radius: 50%;
+          animation: cf-spin 0.7s linear infinite;
+          flex-shrink: 0;
+        }
+
+        @keyframes cf-spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .cf-result {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          margin-top: 20px;
+          padding: 16px;
+          font-family: var(--ts-font-mono);
+          font-size: 13px;
+          line-height: 1.6;
+          border: 1px solid;
+        }
+
+        .cf-result--success {
+          color: #a8e6cf;
+          border-color: rgba(168, 230, 207, 0.2);
+          background: rgba(168, 230, 207, 0.05);
+        }
+
+        .cf-result--error {
+          color: #ffb3b3;
+          border-color: rgba(255, 179, 179, 0.2);
+          background: rgba(255, 179, 179, 0.05);
+        }
+
+        .cf-result-icon {
+          font-size: 14px;
+          font-weight: 700;
+          flex-shrink: 0;
+          margin-top: 1px;
+        }
+
+        .cf-disclaimer {
+          font-family: var(--ts-font-mono);
+          font-size: 10px;
+          color: var(--ts-text-faint);
+          margin-top: 16px;
+          line-height: 1.6;
+          letter-spacing: 0.03em;
+        }
+      `}</style>
     </div>
   );
 }
-
-// for js
-// 'use client';
-
-// import { useState } from 'react';
-
-// export default function ContactForm({ type = 'club', lectureId = null, courseId = null, source = 'website' }) {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     phone: '',
-//     email: '',
-//     additional_info: '',
-//   });
-  
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [submitResult, setSubmitResult] = useState(null);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-//     setSubmitResult(null);
-
-//     try {
-//       const response = await fetch(`${process.env.NEXT_PUBLIC_WP_REST_URL}/liveclub/v1/submit`, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           ...formData,
-//           type,
-//           source,
-//           lecture_id: lectureId,
-//           course_id: courseId,
-//         }),
-//       });
-
-//       const result = await response.json();
-
-//       if (result.success) {
-//         setSubmitResult({ type: 'success', message: result.message });
-//         setFormData({ name: '', phone: '', email: '', additional_info: '' });
-//       } else {
-//         setSubmitResult({ type: 'error', message: result.message || 'Помилка відправки' });
-//       }
-//     } catch (error) {
-//       console.error('Submit error:', error);
-//       setSubmitResult({ type: 'error', message: 'Помилка з\'єднання' });
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
-
-//   const formLabels = {
-//     club: 'Запис до Клубу',
-//     lecture: 'Запис на лекцію',
-//     course: 'Запис на курс',
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
-//       <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">
-//         {formLabels[type] || 'Форма запису'}
-//       </h3>
-
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         {/* Ім'я */}
-//         <div>
-//           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-//             Ім'я *
-//           </label>
-//           <input
-//             type="text"
-//             id="name"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleChange}
-//             required
-//             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-//             placeholder="Ваше ім'я"
-//           />
-//         </div>
-
-//         {/* Телефон */}
-//         <div>
-//           <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-//             Телефон *
-//           </label>
-//           <input
-//             type="tel"
-//             id="phone"
-//             name="phone"
-//             value={formData.phone}
-//             onChange={handleChange}
-//             required
-//             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-//             placeholder="+380 XX XXX XX XX"
-//           />
-//         </div>
-
-//         {/* Email */}
-//         <div>
-//           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-//             Email
-//           </label>
-//           <input
-//             type="email"
-//             id="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-//             placeholder="email@example.com"
-//           />
-//         </div>
-
-//         {/* Додаткова інформація */}
-//         <div>
-//           <label htmlFor="additional_info" className="block text-sm font-medium text-gray-700 mb-1">
-//             Коментар або питання
-//           </label>
-//           <textarea
-//             id="additional_info"
-//             name="additional_info"
-//             value={formData.additional_info}
-//             onChange={handleChange}
-//             rows="3"
-//             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-//             placeholder="Ваш коментар..."
-//           />
-//         </div>
-
-//         {/* Кнопка відправки */}
-//         <button
-//           type="submit"
-//           disabled={isSubmitting}
-//           className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
-//             isSubmitting
-//               ? 'bg-gray-400 cursor-not-allowed'
-//               : 'bg-blue-600 hover:bg-blue-700 text-white'
-//           }`}
-//         >
-//           {isSubmitting ? 'Відправляємо...' : 'Відправити заявку'}
-//         </button>
-//       </form>
-
-//       {/* Результат відправки */}
-//       {submitResult && (
-//         <div className={`mt-4 p-3 rounded-lg ${
-//           submitResult.type === 'success' 
-//             ? 'bg-green-50 text-green-800 border border-green-200' 
-//             : 'bg-red-50 text-red-800 border border-red-200'
-//         }`}>
-//           {submitResult.message}
-//         </div>
-//       )}
-
-//       <p className="mt-4 text-xs text-gray-500 text-center">
-//         Натискаючи "Відправити заявку", ви погоджуєтесь з обробкою ваших даних
-//       </p>
-//     </div>
-//   );
-// }

@@ -1,26 +1,418 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   THETA SPACE — DESIGN TOKENS
+   Brand: Amber #FFC107 + Deep Black #0D0C0A
+   Ref: kikk.be editorial aesthetic
+───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Core brand ── */
+  --ts-amber:       #FFC107;   /* лого: основний жовтий */
+  --ts-amber-dark:  #E5A800;   /* hover стан */
+  --ts-amber-faint: rgba(255, 193, 7, 0.1);
+
+  /* ── Backgrounds — глибокий теплий чорний ── */
+  --ts-bg:          #0D0C0A;   /* основний фон */
+  --ts-bg-1:        #141310;   /* підняті поверхні */
+  --ts-bg-2:        #1C1A16;   /* картки, інпути */
+  --ts-bg-3:        #242118;   /* ще світліший шар */
+
+  /* ── Text — теплий, не стерильний ── */
+  --ts-text:        #F2EDE4;   /* основний текст */
+  --ts-text-muted:  rgba(242, 237, 228, 0.52);
+  --ts-text-faint:  rgba(242, 237, 228, 0.25);
+
+  /* ── Borders ── */
+  --ts-border:      rgba(242, 237, 228, 0.07);
+  --ts-border-mid:  rgba(242, 237, 228, 0.14);
+  --ts-border-warm: rgba(255, 193, 7, 0.2);
+
+  /* ── Typography ── */
+  --ts-font-display: var(--font-display-var, 'Bebas Neue'), sans-serif;
+  --ts-font-mono:    var(--font-mono-var, 'Space Mono'), monospace;
+
+  /* ── Spacing ── */
+  --ts-xs:  8px;
+  --ts-sm:  16px;
+  --ts-md:  32px;
+  --ts-lg:  64px;
+  --ts-xl:  108px;
+
+  /* ── Layout ── */
+  --ts-max:    1400px;
+  --ts-gutter: 40px;
+
+  /* ── Motion ── */
+  --ts-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ts-dur:  220ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ts-bg);
+  color: var(--ts-text);
+  font-family: var(--ts-font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY
+───────────────────────────────────────── */
+
+/* Display headings — Bebas Neue */
+.ts-d-xl {
+  font-family: var(--ts-font-display);
+  font-size: clamp(80px, 14vw, 220px);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--ts-text);
+}
+.ts-d-lg {
+  font-family: var(--ts-font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.95;
+  color: var(--ts-text);
+}
+.ts-d-md {
+  font-family: var(--ts-font-display);
+  font-size: clamp(38px, 6vw, 80px);
+  line-height: 1;
+  color: var(--ts-text);
+}
+.ts-d-sm {
+  font-family: var(--ts-font-display);
+  font-size: clamp(26px, 4vw, 48px);
+  line-height: 1.05;
+  color: var(--ts-text);
+}
+
+/* Label — amber uppercase mono */
+.ts-label {
+  font-family: var(--ts-font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ts-amber);
+  display: block;
+}
+
+/* Overline with dash */
+.ts-label::before { content: '— '; }
+
+/* Body */
+.ts-body {
+  font-family: var(--ts-font-mono);
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ts-text-muted);
+}
+.ts-body-sm {
+  font-family: var(--ts-font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ts-text-faint);
+}
+
+/* Price / number accent */
+.ts-price {
+  font-family: var(--ts-font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1;
+  color: var(--ts-amber);
+}
+
+/* ─────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────── */
+.ts-btn {
+  display: inline-block;
+  font-family: var(--ts-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  text-decoration: none;
+  transition:
+    background var(--ts-dur) var(--ts-ease),
+    color var(--ts-dur) var(--ts-ease),
+    border-color var(--ts-dur) var(--ts-ease);
+}
+
+/* Primary — amber fill, logolike */
+.ts-btn-primary {
+  background: var(--ts-amber);
+  color: var(--ts-bg);
+}
+.ts-btn-primary:hover { background: #ffffff; color: var(--ts-bg); }
+
+/* Outline */
+.ts-btn-outline {
+  background: transparent;
+  color: var(--ts-text);
+  border: 1px solid var(--ts-border-mid);
+}
+.ts-btn-outline:hover {
+  border-color: var(--ts-amber);
+  color: var(--ts-amber);
+}
+
+/* Ghost — plain text link */
+.ts-btn-ghost {
+  background: transparent;
+  color: var(--ts-text-muted);
+  padding: 14px 0;
+  border: none;
+}
+.ts-btn-ghost:hover { color: var(--ts-text); }
+
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
+.ts-wrap {
+  width: 100%;
+  max-width: var(--ts-max);
+  margin-inline: auto;
+  padding-inline: var(--ts-gutter);
+}
+
+.ts-section    { padding-block: var(--ts-xl); }
+.ts-section-sm { padding-block: var(--ts-lg); }
+
+.ts-divider { height: 1px; background: var(--ts-border); border: none; }
+
+/* ─────────────────────────────────────────
+   SECTION HEADER PATTERN
+───────────────────────────────────────── */
+.ts-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--ts-border);
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .ts-section-head { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
+.ts-card {
+  background: var(--ts-bg-1);
+  border: 1px solid var(--ts-border);
+  overflow: hidden;
+  transition: border-color var(--ts-dur) var(--ts-ease);
+}
+.ts-card:hover { border-color: var(--ts-border-warm); }
+
+.ts-card-media {
+  aspect-ratio: 4/3;
+  background: var(--ts-bg-2);
+  overflow: hidden;
+}
+.ts-card-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: transform 0.6s var(--ts-ease), filter 0.4s var(--ts-ease);
+}
+.ts-card:hover .ts-card-media img {
+  transform: scale(1.04);
+  filter: grayscale(0%);
+}
+.ts-card-body {
+  padding: 24px;
+  border-top: 1px solid var(--ts-border);
+}
+
+/* Product / price card */
+.ts-product-card {
+  background: var(--ts-bg-1);
+  border: 1px solid var(--ts-border);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color var(--ts-dur) var(--ts-ease);
+}
+.ts-product-card:hover { border-color: var(--ts-border-warm); }
+
+/* ─────────────────────────────────────────
+   MARQUEE
+───────────────────────────────────────── */
+.ts-marquee {
+  background: var(--ts-amber);
+  overflow: hidden;
+  padding: 15px 0;
+}
+.ts-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ts-run 26s linear infinite;
+  will-change: transform;
+}
+.ts-marquee-item {
+  font-family: var(--ts-font-display);
+  font-size: 20px;
+  letter-spacing: 0.06em;
+  color: var(--ts-bg);
+  padding: 0 32px;
+  flex-shrink: 0;
+}
+.ts-marquee-sep {
+  color: rgba(0,0,0,0.3);
+  align-self: center;
+  flex-shrink: 0;
+}
+@keyframes ts-run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   FORMS
+───────────────────────────────────────── */
+.ts-field { display: flex; flex-direction: column; gap: 8px; }
+
+.ts-field-label {
+  font-family: var(--ts-font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ts-text-faint);
+}
+
+.ts-input {
+  width: 100%;
+  background: var(--ts-bg-2);
+  border: 1px solid var(--ts-border);
+  border-bottom: 1px solid var(--ts-border-mid);
+  color: var(--ts-text);
+  font-family: var(--ts-font-mono);
+  font-size: 13px;
+  padding: 14px 16px;
+  outline: none;
+  appearance: none;
+  border-radius: 0;
+  transition: border-color var(--ts-dur) var(--ts-ease);
+}
+.ts-input::placeholder { color: var(--ts-text-faint); }
+.ts-input:focus { border-color: var(--ts-amber); }
+
+/* ─────────────────────────────────────────
+   TAG / BADGE
+───────────────────────────────────────── */
+.ts-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ts-font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border: 1px solid var(--ts-border-warm);
+  color: var(--ts-amber);
+  background: var(--ts-amber-faint);
+}
+
+/* Location tag — Гончара 15/3 */
+.ts-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ts-font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ts-text-muted);
+  border: 1px solid var(--ts-border-mid);
+  padding: 8px 16px;
+}
+.ts-location svg { opacity: 0.5; }
+
+/* ─────────────────────────────────────────
+   LOGO COMPONENT (SVG-like inline)
+   Відтворює стиль: текст у прямокутнику
+───────────────────────────────────────── */
+.ts-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid currentColor;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: var(--ts-font-display);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--ts-amber);
+  text-decoration: none;
+  transition: color var(--ts-dur), border-color var(--ts-dur);
+  flex-direction: column;
+  gap: 0;
+}
+.ts-logo:hover { color: #fff; }
+
+.ts-logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.95;
+}
+
+/* ─────────────────────────────────────────
+   NOISE OVERLAY
+───────────────────────────────────────── */
+.ts-noise { position: relative; }
+.ts-noise::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   SCROLL OFFSET
+───────────────────────────────────────── */
+[id] { scroll-margin-top: 88px; }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --ts-gutter: 32px; --ts-xl: 80px; --ts-lg: 56px; }
+}
+@media (max-width: 768px) {
+  :root { --ts-gutter: 24px; --ts-xl: 64px; --ts-lg: 48px; }
+}
+@media (max-width: 480px) {
+  :root { --ts-gutter: 20px; --ts-xl: 56px; }
 }

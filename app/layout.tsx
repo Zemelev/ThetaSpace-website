@@ -1,38 +1,46 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic"],
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-mono-var",
+  subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin", "cyrillic"],
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  variable: "--font-display-var",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "ThetaSpace ",
-    template: "%s | ThetaSpace",
+    default: "Theta Space",
+    template: "%s | Theta Space",
   },
-  description: "Щоденний клуб, лекції від експертів та курси для початківців. Приєднуйтесь до спільноти, де кожен знайде собі співрозмовника.",
-  keywords: "клуб спілкування, лекції, курси, ментори, психологія, розвиток, жива розмова, комунікація, ThetaSpace",
-  authors: [{ name: "ThetaSpace" }],
+  description:
+    "Школа життя та живого спілкування у серці Києва. Клуб, лекції, курси та Self Upgrade. Гончара 15/3.",
+  keywords:
+    "клуб спілкування, лекції, курси, ментори, Self Upgrade, ProLab, ThetaSpace, Київ, Гончара, живе спілкування",
+  authors: [{ name: "Theta Space" }],
   openGraph: {
-    title: "ThetaSpace | Простір для живого спілкування",
-    description: "Щоденний клуб, лекції від експертів та курси для початківців",
+    title: "Theta Space | Школа живого спілкування",
+    description:
+      "Простір для тих, хто шукає справжнє спілкування та розвиток. Гончара 15/3, Київ.",
     url: "https://www.theta-space.org",
-    siteName: "ThetaSpace",
+    siteName: "Theta Space",
     images: [
       {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ThetaSpace - простір для живого спілкування",
+        alt: "Theta Space — школа живого спілкування, Київ",
       },
     ],
     locale: "uk_UA",
@@ -40,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ThetaSpace | Простір для живого спілкування",
-    description: "Щоденний клуб, лекції від експертів та курси для початківців",
+    title: "Theta Space | Школа живого спілкування",
+    description: "Простір для тих, хто шукає справжнє спілкування. Київ.",
     images: ["/images/og-image.jpg"],
   },
   robots: {
@@ -55,9 +63,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "", // Додамо пізніше
-  },
   alternates: {
     canonical: "https://www.theta-space.org",
   },
@@ -69,11 +74,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning={true}
-      >
+    <html
+      lang="uk"
+      className={`${spaceMono.variable} ${bebasNeue.variable}`}
+    >
+      <body suppressHydrationWarning={true}>
         <Header />
         {children}
       </body>
