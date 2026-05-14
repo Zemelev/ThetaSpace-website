@@ -10,13 +10,6 @@ export async function GET() {
         body: JSON.stringify({
           query: `
             {
-              posts(first: 3) {
-                nodes {
-                  id
-                  title
-                  excerpt
-                }
-              }
               lectures(first: 3) {
                 nodes {
                   id

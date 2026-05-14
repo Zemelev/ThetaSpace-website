@@ -19,7 +19,7 @@ export const GET_LATEST_LECTURE = `
           location
           price
           lectureImage {
-            node {                  
+            node {
               sourceUrl
               altText
               title
@@ -34,7 +34,7 @@ export const GET_LATEST_LECTURE = `
                 mentorDetails {
                   position
                   mentorPhoto {
-                    node {             
+                    node {
                       sourceUrl
                       altText
                     }
@@ -67,7 +67,7 @@ export const GET_ALL_LECTURES = `
           location
           price
           lectureImage {
-             node {                  
+            node {
               sourceUrl
               altText
             }
@@ -107,7 +107,7 @@ export const GET_LECTURE_BY_SLUG = `
         location
         price
         lectureImage {
-          node {                    
+          node {
             sourceUrl
             altText
             title
@@ -123,139 +123,13 @@ export const GET_LECTURE_BY_SLUG = `
                 position
                 shortBio
                 mentorPhoto {
-                  node {             
+                  node {
                     sourceUrl
                     altText
                   }
                 }
               }
             }
-          }
-        }
-      }
-    }
-  }
-`;
-
-// ==================== КУРСИ ====================
-
-export const GET_ALL_COURSES = `
-  query GetAllCourses {
-    courses(first: 20) {
-      nodes {
-        id
-        title
-        excerpt
-        slug
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-        courseDetails {
-          duration
-          coursePrice
-          format
-          includes
-          courseImage {
-            node {                    
-              sourceUrl
-              altText
-              title
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const GET_COURSE_BY_SLUG = `
-  query GetCourseBySlug($slug: ID!) {
-    course(id: $slug, idType: SLUG) {
-      id
-      title
-      content
-      excerpt
-      slug
-      uri
-      featuredImage {
-        node {
-          sourceUrl
-        }
-      }
-      courseDetails {
-        duration
-        coursePrice
-        format
-        includes
-        courseImage {
-           node {                    
-            sourceUrl
-            altText
-            title
-          }
-        }
-      }
-    }
-  }
-`;
-
-// ==================== МЕНТОРИ ====================
-
-export const GET_ALL_MENTORS = `
-  query GetAllMentors {
-    mentors(first: 20) {
-      nodes {
-        id
-        title
-        excerpt
-        slug
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-        mentorDetails {
-          position
-          shortBio
-          socialLinks
-          mentorPhoto {
-            node {                 
-              sourceUrl
-              altText
-              title
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const GET_MENTOR_BY_SLUG = `
-  query GetMentorBySlug($slug: ID!) {
-    mentor(id: $slug, idType: SLUG) {
-      id
-      title
-      content
-      excerpt
-      slug
-      uri
-      featuredImage {
-        node {
-          sourceUrl
-        }
-      }
-      mentorDetails {
-        position
-        shortBio
-        socialLinks
-        mentorPhoto {
-          node {                   
-            sourceUrl
-            altText
-            title
           }
         }
       }

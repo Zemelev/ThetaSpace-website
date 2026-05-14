@@ -1,46 +1,32 @@
-// app/layout.tsx
 import type { Metadata } from "next";
-import { Space_Mono, Bebas_Neue } from "next/font/google";
-import "./globals.css";
 import Header from "@/components/layout/Header";
-
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-mono-var",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  variable: "--font-display-var",
-  subsets: ["latin"],
-  display: "swap",
-});
+import Footer from "@/components/layout/Footer";
+import SignupModal from "@/components/forms/SignupModal";
+import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.theta-space.org"),
   title: {
     default: "Theta Space",
     template: "%s | Theta Space",
   },
   description:
-    "Школа життя та живого спілкування у серці Києва. Клуб, лекції, курси та Self Upgrade. Гончара 15/3.",
+    "Клуб живого спілкування у серці Києва. Лекції, курси, ментори та простір для справжнього контакту.",
   keywords:
-    "клуб спілкування, лекції, курси, ментори, Self Upgrade, ProLab, ThetaSpace, Київ, Гончара, живе спілкування",
+    "клуб спілкування, лекції, курси, ментори, Self Upgrade, ProLab, Theta Space, Київ, Гончара 15/3",
   authors: [{ name: "Theta Space" }],
   openGraph: {
-    title: "Theta Space | Школа живого спілкування",
+    title: "Theta Space | Клуб живого спілкування",
     description:
       "Простір для тих, хто шукає справжнє спілкування та розвиток. Гончара 15/3, Київ.",
     url: "https://www.theta-space.org",
     siteName: "Theta Space",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/theta-static/assets/засновники.jpg",
         width: 1200,
         height: 630,
-        alt: "Theta Space — школа живого спілкування, Київ",
+        alt: "Theta Space, клуб живого спілкування, Київ",
       },
     ],
     locale: "uk_UA",
@@ -48,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Theta Space | Школа живого спілкування",
+    title: "Theta Space | Клуб живого спілкування",
     description: "Простір для тих, хто шукає справжнє спілкування. Київ.",
-    images: ["/images/og-image.jpg"],
+    images: ["/theta-static/assets/засновники.jpg"],
   },
   robots: {
     index: true,
@@ -74,13 +60,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="uk"
-      className={`${spaceMono.variable} ${bebasNeue.variable}`}
-    >
-      <body suppressHydrationWarning={true}>
+    <html lang="uk">
+      <body suppressHydrationWarning>
         <Header />
         {children}
+        <Footer />
+        <SignupModal />
       </body>
     </html>
   );

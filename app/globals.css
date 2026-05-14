@@ -1,319 +1,64 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&family=Unbounded:wght@700;800;900&display=swap");
+@import "./static-css/main.css";
+@import "./static-css/home.css";
+@import "./static-css/pages.css";
 
-/* ─────────────────────────────────────────
-   THETA SPACE — WARM LIGHT THEME
-   Cream base + deep charcoal text + amber accent
-   Відчуття: тепла київська квартира, не tech startup
-───────────────────────────────────────── */
-:root {
-  /* ── Backgrounds ── */
-  --ts-bg:       #424242;   /* основний — вершковий крем */
-  --ts-bg-1:     #262626;   /* трохи темніший */
-  --ts-bg-2:     #292929;   /* картки, інпути */
-  --ts-bg-dark:  #1C1A14;   /* темні секції */
-  --ts-bg-dark1: #252318;   /* підняті в темному */
-
-  /* ── Text ── */
-  --ts-text:        #1C1A14;   /* майже чорний, теплий */
-  --ts-text-muted:  rgba(28, 26, 20, 0.52);
-  --ts-text-faint:  rgba(28, 26, 20, 0.28);
-  --ts-text-inv:    #F5F0E8;   /* текст на темних секціях */
-  --ts-text-inv-muted: rgba(245, 240, 232, 0.55);
-
-  /* ── Brand amber ── */
-  --ts-amber:       #FFC107;
-  --ts-amber-deep:  #E5A800;
-  --ts-amber-faint: rgba(255, 193, 7, 0.15);
-
-  /* ── Borders ── */
-  --ts-border:      rgba(28, 26, 20, 0.1);
-  --ts-border-mid:  rgba(28, 26, 20, 0.18);
-  --ts-border-inv:  rgba(245, 240, 232, 0.1);
-
-  /* ── Typography ── */
-  --ts-font-display: var(--font-display-var, 'Bebas Neue'), sans-serif;
-  --ts-font-mono:    var(--font-mono-var, 'Space Mono'), monospace;
-
-  /* ── Spacing ── */
-  --ts-xs:  8px;
-  --ts-sm:  16px;
-  --ts-md:  32px;
-  --ts-lg:  64px;
-  --ts-xl:  104px;
-
-  /* ── Layout ── */
-  --ts-max:    1400px;
-  --ts-gutter: 40px;
-
-  /* ── Motion ── */
-  --ts-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ts-dur:  220ms;
-}
-
-/* ─────────────────────────────────────────
-   RESET
-───────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+html,
 body {
-  background: var(--ts-bg);
-  color: var(--ts-text);
-  font-family: var(--ts-font-mono);
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 100svh;
-  overflow-x: hidden;
+  min-height: 100%;
 }
 
-img, video { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: none; font: inherit; }
-
-/* ─────────────────────────────────────────
-   TYPOGRAPHY
-───────────────────────────────────────── */
-.ts-d-xl {
-  font-family: var(--ts-font-display);
-  font-size: clamp(80px, 14vw, 220px);
-  line-height: 0.92; color: var(--ts-text);
-}
-.ts-d-lg {
-  font-family: var(--ts-font-display);
-  font-size: clamp(56px, 9vw, 120px);
-  line-height: 0.95; color: var(--ts-text);
-}
-.ts-d-md {
-  font-family: var(--ts-font-display);
-  font-size: clamp(38px, 6vw, 80px);
-  line-height: 1; color: var(--ts-text);
-}
-.ts-d-sm {
-  font-family: var(--ts-font-display);
-  font-size: clamp(26px, 4vw, 48px);
-  line-height: 1.05; color: var(--ts-text);
+body.modal-open {
+  overflow: hidden;
 }
 
-/* Label — amber на світлому */
-.ts-label {
-  font-family: var(--ts-font-mono);
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ts-amber-deep); display: block;
-}
-/* Label на темному фоні */
-.ts-label-inv {
-  font-family: var(--ts-font-mono);
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ts-amber); display: block;
+.static-page {
+  position: relative;
+  z-index: 1;
 }
 
-.ts-body {
-  font-family: var(--ts-font-mono);
-  font-size: 14px; line-height: 1.85; color: var(--ts-text-muted);
-}
-.ts-body-inv {
-  font-family: var(--ts-font-mono);
-  font-size: 14px; line-height: 1.85; color: var(--ts-text-inv-muted);
-}
-.ts-body-sm {
-  font-family: var(--ts-font-mono);
-  font-size: 12px; line-height: 1.7; color: var(--ts-text-faint);
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-.ts-price {
-  font-family: var(--ts-font-display);
-  font-size: clamp(32px, 5vw, 56px); line-height: 1;
-  color: var(--ts-amber-deep);
+.form-status {
+  min-height: 1.35rem;
+  margin-top: 0.4rem;
+  color: var(--c-mute);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
-/* ─────────────────────────────────────────
-   BUTTONS
-───────────────────────────────────────── */
-.ts-btn {
-  display: inline-block;
-  font-family: var(--ts-font-mono);
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 14px 32px; cursor: pointer;
-  white-space: nowrap; border: none; text-decoration: none;
-  transition: background var(--ts-dur) var(--ts-ease),
-              color var(--ts-dur) var(--ts-ease),
-              border-color var(--ts-dur) var(--ts-ease);
+.form-status.is-error {
+  color: var(--c-terracotta);
 }
 
-/* Primary — amber на світлому */
-.ts-btn-primary {
-  background: var(--ts-amber);
-  color: var(--ts-text);
-}
-.ts-btn-primary:hover { background: var(--ts-text); color: var(--ts-bg); }
-
-/* Outline — на світлому */
-.ts-btn-outline {
-  background: transparent;
-  color: var(--ts-text);
-  border: 1px solid var(--ts-border-mid);
-}
-.ts-btn-outline:hover {
-  border-color: var(--ts-text);
-  background: var(--ts-text);
-  color: var(--ts-bg);
+.form-status.is-success {
+  color: var(--c-ink);
 }
 
-/* Outline inverse — на темному */
-.ts-btn-outline-inv {
-  background: transparent;
-  color: var(--ts-text-inv);
-  border: 1px solid var(--ts-border-inv);
-}
-.ts-btn-outline-inv:hover {
-  border-color: var(--ts-amber);
-  color: var(--ts-amber);
+.modal-card .btn[disabled] {
+  opacity: 0.7;
+  cursor: wait;
 }
 
-/* ─────────────────────────────────────────
-   LAYOUT
-───────────────────────────────────────── */
-.ts-wrap {
-  width: 100%; max-width: var(--ts-max);
-  margin-inline: auto; padding-inline: var(--ts-gutter);
-}
-.ts-section    { padding-block: var(--ts-xl); }
-.ts-section-sm { padding-block: var(--ts-lg); }
-.ts-divider    { height: 1px; background: var(--ts-border); border: none; }
-.ts-divider-inv { height: 1px; background: var(--ts-border-inv); border: none; }
-
-/* ─────────────────────────────────────────
-   SECTION HEADER
-───────────────────────────────────────── */
-.ts-section-head {
-  display: flex; justify-content: space-between;
-  align-items: flex-end; gap: 24px;
-  margin-bottom: 56px; padding-bottom: 32px;
-  border-bottom: 1px solid var(--ts-border);
-}
-.ts-section-head-inv {
-  display: flex; justify-content: space-between;
-  align-items: flex-end; gap: 24px;
-  margin-bottom: 56px; padding-bottom: 32px;
-  border-bottom: 1px solid var(--ts-border-inv);
-}
-@media (max-width: 768px) {
-  .ts-section-head,
-  .ts-section-head-inv { flex-direction: column; align-items: flex-start; }
+.nav-links button.nav-cta {
+  appearance: none;
 }
 
-/* ─────────────────────────────────────────
-   CARDS — light surface
-───────────────────────────────────────── */
-.ts-card {
-  background: var(--ts-bg-1); border: 1px solid var(--ts-border);
-  overflow: hidden; transition: border-color var(--ts-dur) var(--ts-ease);
-}
-.ts-card:hover { border-color: var(--ts-border-mid); }
-
-.ts-card-dark {
-  background: var(--ts-bg-dark1); border: 1px solid var(--ts-border-inv);
-  overflow: hidden; transition: border-color var(--ts-dur) var(--ts-ease);
+.footer-col button {
+  color: inherit;
+  font: inherit;
+  text-align: left;
 }
 
-.ts-card-media {
-  aspect-ratio: 4/3; background: var(--ts-bg-2); overflow: hidden;
-}
-.ts-card-media img {
-  width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%);
-  transition: transform 0.6s var(--ts-ease), filter 0.4s var(--ts-ease);
-}
-.ts-card:hover .ts-card-media img { transform: scale(1.04); filter: grayscale(0%); }
-.ts-card-body { padding: 24px; border-top: 1px solid var(--ts-border); }
-
-.ts-product-card {
-  background: var(--ts-bg-1); border: 1px solid var(--ts-border);
-  padding: 32px; display: flex; flex-direction: column; gap: 16px;
-  transition: border-color var(--ts-dur) var(--ts-ease);
-}
-.ts-product-card:hover { border-color: var(--ts-amber-deep); }
-.ts-product-card--accent {
-  background: rgba(255,193,7,0.08); border-color: rgba(255,193,7,0.3);
+.footer-col button:hover {
+  color: var(--c-yellow);
 }
 
-/* ─────────────────────────────────────────
-   MARQUEE
-───────────────────────────────────────── */
-.ts-marquee { background: var(--ts-text); overflow: hidden; padding: 15px 0; }
-.ts-marquee-track {
-  display: flex; white-space: nowrap;
-  animation: ts-run 26s linear infinite;
-}
-.ts-marquee-item {
-  font-family: var(--ts-font-display); font-size: 20px;
-  letter-spacing: 0.06em; color: var(--ts-bg);
-  padding: 0 32px; flex-shrink: 0;
-}
-.ts-marquee-sep { color: rgba(245,240,232,0.3); flex-shrink: 0; }
-@keyframes ts-run {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* ─────────────────────────────────────────
-   FORMS
-───────────────────────────────────────── */
-.ts-field { display: flex; flex-direction: column; gap: 8px; }
-.ts-field-label {
-  font-family: var(--ts-font-mono); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--ts-text-faint);
-}
-.ts-input {
-  width: 100%; background: var(--ts-bg);
-  border: 1px solid var(--ts-border);
-  border-bottom: 2px solid var(--ts-border-mid);
-  color: var(--ts-text); font-family: var(--ts-font-mono); font-size: 13px;
-  padding: 14px 16px; outline: none; appearance: none; border-radius: 0;
-  transition: border-color var(--ts-dur) var(--ts-ease);
-}
-.ts-input::placeholder { color: var(--ts-text-faint); }
-.ts-input:focus { border-color: var(--ts-amber-deep); }
-
-/* ─────────────────────────────────────────
-   TAGS
-───────────────────────────────────────── */
-.ts-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--ts-font-mono); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 7px 14px;
-  border: 1px solid rgba(255,193,7,0.4);
-  color: var(--ts-amber-deep); background: var(--ts-amber-faint);
-}
-.ts-location {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--ts-font-mono); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--ts-text-muted); border: 1px solid var(--ts-border-mid); padding: 8px 16px;
-}
-
-/* ─────────────────────────────────────────
-   SCROLL OFFSET
-───────────────────────────────────────── */
-[id] { scroll-margin-top: 88px; }
-
-/* ─────────────────────────────────────────
-   RESPONSIVE
-───────────────────────────────────────── */
-@media (max-width: 1024px) {
-  :root { --ts-gutter: 32px; --ts-xl: 80px; --ts-lg: 56px; }
-}
-@media (max-width: 768px) {
-  :root { --ts-gutter: 24px; --ts-xl: 64px; --ts-lg: 48px; }
-}
-@media (max-width: 480px) {
-  :root { --ts-gutter: 20px; --ts-xl: 56px; }
+@media (max-width: 900px) {
+  .nav {
+    position: relative;
+  }
 }

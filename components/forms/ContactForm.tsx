@@ -238,18 +238,19 @@ export default function ContactForm({
           font-size: 13px;
           line-height: 1.6;
           border: 1px solid;
+          border-radius: 14px;
         }
 
         .cf-result--success {
-          color: #a8e6cf;
-          border-color: rgba(168, 230, 207, 0.2);
-          background: rgba(168, 230, 207, 0.05);
+          color: #3E5F34;
+          border-color: rgba(121, 140, 114, 0.42);
+          background: rgba(121, 140, 114, 0.13);
         }
 
         .cf-result--error {
-          color: #ffb3b3;
-          border-color: rgba(255, 179, 179, 0.2);
-          background: rgba(255, 179, 179, 0.05);
+          color: #8F3521;
+          border-color: rgba(199, 93, 53, 0.42);
+          background: rgba(199, 93, 53, 0.12);
         }
 
         .cf-result-icon {

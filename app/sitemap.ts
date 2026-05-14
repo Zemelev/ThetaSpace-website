@@ -1,86 +1,47 @@
-// app/sitemap.ts
-import { MetadataRoute } from 'next';
 import { fetchGraphQL } from '@/lib/graphql-client';
-import { GET_ALL_LECTURES, GET_ALL_COURSES, GET_ALL_MENTORS } from '@/lib/queries';
+import { GET_ALL_LECTURES } from '@/lib/queries';
+import { COURSE_URLS, MENTOR_URLS } from '@/lib/static-content';
+import { LecturesResponse } from '@/types';
+import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.theta-space.org';
-  
-  // Статичні сторінки
-  const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/club`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/lectures`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/courses`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/mentors`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
+  const now = new Date();
+
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: baseUrl, lastModified: now, changeFrequency: 'daily', priority: 1 },
+    { url: `${baseUrl}/club`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/lectures`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/courses`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/mentors`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    ...COURSE_URLS.map(url => ({
+      url: `${baseUrl}${url}`,
+      lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
+      priority: 0.65,
+    })),
+    ...MENTOR_URLS.map(url => ({
+      url: `${baseUrl}${url}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
   ];
 
   try {
-    const [lecturesData, coursesData, mentorsData] = await Promise.all([
-      fetchGraphQL(GET_ALL_LECTURES).catch(() => ({ lectures: { nodes: [] } })),
-      fetchGraphQL(GET_ALL_COURSES).catch(() => ({ courses: { nodes: [] } })),
-      fetchGraphQL(GET_ALL_MENTORS).catch(() => ({ mentors: { nodes: [] } })),
-    ]);
-
+    const lecturesData = await fetchGraphQL<LecturesResponse>(GET_ALL_LECTURES).catch(() => ({ lectures: { nodes: [] } }));
     const lectures = lecturesData?.lectures?.nodes || [];
-    const courses = coursesData?.courses?.nodes || [];
-    const mentors = mentorsData?.mentors?.nodes || [];
 
-    const lectureUrls = lectures.map((lecture: any) => ({
+    const lectureUrls = lectures.map((lecture: { slug?: string; id: string }) => ({
       url: `${baseUrl}/lectures/${lecture.slug || lecture.id}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'daily' as const,
       priority: 0.7,
     }));
 
-    const courseUrls = courses.map((course: any) => ({
-      url: `${baseUrl}/courses/${course.slug || course.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    }));
-
-    const mentorUrls = mentors.map((mentor: any) => ({
-      url: `${baseUrl}/mentors/${mentor.slug || mentor.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    }));
-
-    return [...staticPages, ...lectureUrls, ...courseUrls, ...mentorUrls];
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
+    return [...staticPages, ...lectureUrls];
+  } catch {
     return staticPages;
   }
 }
