@@ -311,6 +311,52 @@
     [data-reveal]{opacity:1; transform:none; transition:none;}
     html{scroll-behavior:auto;}
   }
+  .gallery-head{
+  display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+  margin-bottom:28px; flex-wrap:wrap;
+  }
+  .gallery-nav{display:flex; gap:10px;}
+  .gnav-btn{
+    width:44px; height:44px; border-radius:50%;
+    border:1.5px solid var(--ink); background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .15s ease, color .15s ease;
+    flex-shrink:0;
+  }
+  .gnav-btn:hover{background:var(--ink); color:var(--paper);}
+  .gnav-btn:disabled{opacity:0.3; cursor:default; pointer-events:none;}
+  .gnav-btn svg{width:17px; height:17px;}
+
+  .gallery-track{
+    display:flex; gap:18px; overflow-x:auto; padding-bottom:8px;
+    scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .gallery-track::-webkit-scrollbar{display:none;}
+  .gallery-card{
+    flex:0 0 auto; width:280px; scroll-snap-align:start;
+  }
+  @media(max-width:560px){ .gallery-card{width:76vw;} }
+  .gallery-photo{
+    width:100%; aspect-ratio:4/5; border-radius:var(--radius-md);
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-end;
+  }
+  .gallery-photo img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .gallery-photo .ph-label{
+    position:relative; z-index:1; padding:16px; font-size:12px;
+    color:rgba(251,247,236,0.85); font-family:'Space Grotesk',sans-serif;
+    letter-spacing:0.04em;
+  }
+  .gallery-card .cap{margin-top:12px; font-size:13.5px; color:var(--muted);}
+  .gallery-card .cap b{color:var(--ink); font-weight:600;}
+
+  /* плейсхолдери — прибери ph-N, коли додаси реальні <img> */
+  .ph-1{background:linear-gradient(155deg, var(--ink) 0%, #33291f 60%, var(--terracotta) 140%);}
+  .ph-2{background:linear-gradient(155deg, var(--terracotta) 0%, #8c4227 100%);}
+  .ph-3{background:linear-gradient(155deg, var(--yellow) 0%, #e0a010 100%);}
+  .ph-4{background:linear-gradient(155deg, #3a332b 0%, var(--ink) 100%);}
+  .ph-3 .ph-label{color:rgba(26,22,18,0.65);}
 </style>
 </head>
 <body>
@@ -393,6 +439,57 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+  <div class="wrap">
+    <div class="gallery-head">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Атмосфера</span>
+        <h2>З попередніх ретритів ТВ</h2>
+        <p>Живі кадри з минулих груп — щоб було зрозуміліше, у який простір ти йдеш.</p>
+      </div>
+      <div class="gallery-nav">
+        <button class="gnav-btn" id="galleryPrev" type="button" aria-label="Попередні фото">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="gnav-btn" id="galleryNext" type="button" aria-label="Наступні фото">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!--
+      Заміни ph-N картку на реальне фото так:
+      <div class="gallery-photo"><img src="photos/tv-01.jpg" alt="Опис фото"></div>
+    -->
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-card">
+        <div class="gallery-photo ph-1"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Коло знайомства</b> · перший день</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-photo ph-2"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Вправа в парах</b> · день 4</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-photo ph-3"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Пауза між блоками</b> · день 7</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-photo ph-4"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Групова вправа</b> · день 9</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-photo ph-1"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Вечірнє коло</b> · день 12</p>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-photo ph-2"><span class="ph-label">Фото ретриту</span></div>
+        <p class="cap"><b>Завершення</b> · день 14</p>
+      </div>
       </div>
     </div>
   </section>
@@ -578,6 +675,27 @@
     items.forEach(el => io.observe(el));
   } else {
     items.forEach(el => el.classList.add('in'));
+  }
+
+  const track = document.getElementById('galleryTrack');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  if (track && prevBtn && nextBtn) {
+    const scrollByCard = () => {
+      const card = track.querySelector('.gallery-card');
+      return card ? card.getBoundingClientRect().width + 18 : 300;
+    };
+    prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollByCard(), behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollByCard(), behavior: 'smooth' }));
+
+    const updateNavState = () => {
+      const max = track.scrollWidth - track.clientWidth - 4;
+      prevBtn.disabled = track.scrollLeft <= 4;
+      nextBtn.disabled = track.scrollLeft >= max;
+    };
+    track.addEventListener('scroll', updateNavState);
+    window.addEventListener('resize', updateNavState);
+    updateNavState();
   }
 </script>
 
