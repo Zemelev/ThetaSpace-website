@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ретрит по спілкуванню (ТВ) — Theta Space</title>
+<meta name="description" content="Ретрит по спілкуванню від Theta Space. 18 липня — 2 серпня. Перший день вільний, без зобов'язань. Дізнайся про формат і займи місце.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:      #FBF7EC;
+    --paper-alt:  #F3ECDA;
+    --ink:        #1A1612;
+    --yellow:     #FFC42E;
+    --yellow-soft:#FFE39B;
+    --terracotta: #C4633A;
+    --terracotta-soft: #EBC3AE;
+    --muted:      #6B645B;
+    --line:       #E5DDD0;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{padding:96px 0;}
+  @media(max-width:720px){
+    section{padding:64px 0;}
+    .wrap{padding:0 20px;}
+  }
+
+  :focus-visible{outline:2px solid var(--ink); outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,236,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:1180px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo-badge{
+    width:34px; height:34px; border-radius:9px;
+    background:var(--yellow);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .logo-text{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; line-height:1.1;}
+  .logo-sub{font-size:10px; letter-spacing:0.08em; color:var(--muted); text-transform:uppercase;}
+  .nav-links{display:flex; align-items:center; gap:22px;}
+  .nav-back{
+    font-size:13px; font-weight:500; color:var(--muted);
+    display:flex; align-items:center; gap:6px;
+    white-space:nowrap;
+  }
+  .nav-back:hover{color:var(--ink);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+    padding:12px 20px; border-radius:999px;
+    transition:transform .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-dark{background:var(--ink); color:var(--paper);}
+  .btn-dark:hover{background:#000;}
+  .btn-yellow{background:var(--yellow); color:var(--ink);}
+  .btn-outline{border:1.5px solid var(--ink); color:var(--ink);}
+  @media(max-width:640px){ .nav-back span{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:56px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:28px; align-items:stretch;
+  }
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .hero-card{
+    background:var(--yellow);
+    border-radius:var(--radius-lg);
+    padding:44px 40px 40px;
+    position:relative; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .hero-card::after{
+    content:"";
+    position:absolute; right:-70px; top:-70px;
+    width:280px; height:280px; border-radius:50%;
+    background:rgba(26,22,18,0.055);
+  }
+  .chip-row{display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:1;}
+  .chip{
+    background:var(--ink); color:var(--paper);
+    padding:8px 14px; border-radius:999px;
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .chip-ghost{
+    background:rgba(26,22,18,0.08); color:var(--ink);
+  }
+  .hero-title{
+    font-size:clamp(38px, 5.2vw, 60px);
+    margin:26px 0 18px;
+    position:relative; z-index:1;
+  }
+  .hero-desc{
+    font-size:16.5px; color:rgba(26,22,18,0.78); max-width:46ch;
+    position:relative; z-index:1;
+  }
+  .info-grid{
+    margin-top:30px;
+    background:rgba(251,247,236,0.55);
+    border-radius:var(--radius-md);
+    padding:20px 22px;
+    display:grid; grid-template-columns:1fr 1fr; gap:18px 24px;
+    position:relative; z-index:1;
+  }
+  .info-item .label{
+    font-family:'Space Grotesk',sans-serif; font-size:10.5px; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; color:rgba(26,22,18,0.55);
+    margin-bottom:4px;
+  }
+  .info-item .value{font-weight:600; font-size:15px;}
+  .hero-cta-row{
+    margin-top:30px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    position:relative; z-index:1;
+  }
+  .hero-note{font-size:13px; color:rgba(26,22,18,0.6);}
+
+  /* day-strip signature element */
+  .daycard{
+    background:var(--ink); border-radius:var(--radius-lg);
+    padding:34px 30px; color:var(--paper);
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .daycard-head .eyebrow{color:var(--yellow);}
+  .daycard-head p{color:#FFC42E; font-size:14px; margin-top:10px; max-width:34ch;}
+  .strip{
+    display:flex; gap:5px; margin:30px 0 14px; flex-wrap:wrap;
+  }
+  .day{
+    flex:1 1 auto; min-width:16px; height:52px; border-radius:7px;
+    background:rgba(251,247,236,0.12);
+    display:flex; align-items:flex-end; justify-content:center;
+    font-size:10px; font-weight:600; color:rgba(251,247,236,0.4);
+    padding-bottom:5px;
+  }
+  .day-zero{
+    background:var(--terracotta); color:var(--paper); flex:1.6 1 auto;
+    font-size:11px; font-weight:700;
+  }
+  .strip-legend{
+    display:flex; justify-content:space-between; font-size:12px; color:rgba(251,247,236,0.55);
+  }
+  .strip-legend b{color:var(--paper); font-weight:600;}
+
+  /* ---------- BLOCKERS ---------- */
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head .eyebrow{color:var(--terracotta);}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px); margin-top:12px;}
+  .section-head p{color:var(--muted); margin-top:12px; font-size:15.5px;}
+
+  .blockers-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  }
+  @media(max-width:800px){ .blockers-grid{grid-template-columns:1fr;} }
+  .blocker{
+    background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:26px 24px;
+  }
+  .blocker .tag{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);
+  }
+  .blocker h3{font-size:19px; margin:12px 0 8px;}
+  .blocker p{font-size:14.5px; color:var(--muted);}
+
+  /* ---------- FREE DAY ---------- */
+  .freeday{
+    background:var(--terracotta); color:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:56px 48px;
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;
+  }
+  @media(max-width:820px){ .freeday{grid-template-columns:1fr; padding:40px 26px;} }
+  .freeday .eyebrow{color:rgba(251,247,236,0.75);}
+  .freeday h2{font-size:clamp(28px,3.6vw,42px); margin:14px 0 16px;}
+  .freeday p{color:rgba(251,247,236,0.9); font-size:16px; max-width:46ch;}
+  .freeday-list{margin-top:22px; display:flex; flex-direction:column; gap:12px;}
+  .freeday-list li{
+    list-style:none; display:flex; gap:10px; font-size:14.5px; color:rgba(251,247,236,0.92);
+  }
+  .freeday-list li::before{content:"—"; opacity:0.7; flex-shrink:0;}
+  .freeday-visual{
+    background:rgba(251,247,236,0.1);
+    border:1px solid rgba(251,247,236,0.25);
+    border-radius:var(--radius-md);
+    padding:34px 28px;
+    text-align:center;
+  }
+  .freeday-visual .big{
+    font-family:'Space Grotesk',sans-serif; font-size:110px; font-weight:700; line-height:0.9;
+  }
+  .freeday-visual .cap{
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase; margin-top:10px; color:rgba(251,247,236,0.75);
+  }
+
+  /* ---------- FORMAT ---------- */
+  .format-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  @media(max-width:860px){ .format-grid{grid-template-columns:1fr;} }
+  .format-list{display:flex; flex-direction:column;}
+  .format-row{
+    display:flex; gap:18px; padding:20px 0; border-top:1px solid var(--line);
+  }
+  .format-row:last-child{border-bottom:1px solid var(--line);}
+  .format-time{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; width:92px; flex-shrink:0; color:var(--terracotta);
+  }
+  .format-row h3{font-size:16px; margin-bottom:4px;}
+  .format-row p{font-size:14px; color:var(--muted);}
+
+  .strip-card{
+    background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:28px;
+  }
+  .strip-card .strip .day{ background:rgba(26,22,18,0.06); color:var(--muted); }
+  .strip-card .day-zero{ background:var(--terracotta); color:var(--paper); }
+  .strip-card .strip-legend{ color:var(--muted); }
+  .strip-card .strip-legend b{ color:var(--ink); }
+  .strip-card p.note{font-size:13.5px; color:var(--muted); margin-top:16px;}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    background:var(--ink); color:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:56px 48px;
+    display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center;
+  }
+  @media(max-width:820px){ .about{grid-template-columns:1fr; padding:40px 26px;} }
+  .about .eyebrow{color:var(--yellow);}
+  .about h2{font-size:clamp(24px,3vw,32px); margin:14px 0 14px;}
+  .about p{color:rgba(251,247,236,0.72); font-size:15.5px; max-width:52ch;}
+  .about-founders{font-size:13px; color:rgba(251,247,236,0.55); margin-top:16px;}
+
+  /* ---------- CONSULT / FAQ ---------- */
+  .consult{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  }
+  @media(max-width:820px){ .consult{grid-template-columns:1fr;} }
+  .consult-box{
+    background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:30px 28px;
+  }
+  .consult-box h3{font-size:18px; margin-bottom:8px;}
+  .consult-box p{font-size:14.5px; color:var(--muted); margin-bottom:18px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{
+    background:var(--yellow); border-radius:var(--radius-lg);
+    padding:60px 40px; text-align:center;
+  }
+  .cta-band h2{font-size:clamp(28px,4vw,44px); max-width:18ch; margin:0 auto 14px;}
+  .cta-band p{color:rgba(26,22,18,0.75); max-width:44ch; margin:0 auto 28px; font-size:15.5px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:40px 0;}
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .footer-row .muted{color:var(--muted); font-size:13px;}
+  .footer-links{display:flex; gap:18px; font-size:13px; color:var(--muted);}
+  .footer-links a:hover{color:var(--ink);}
+
+  [data-reveal]{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="index.html" aria-label="Theta Space — на головну">
+      <div class="logo-badge">Θ</div>
+      <div>
+        <div class="logo-text">Theta Space</div>
+        <div class="logo-sub">Клуб живого спілкування</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-back" href="https://www.theta-space.org/about">↗ <span>До Theta Space</span></a>
+      <a class="btn btn-dark" href="#reg">Зайняти місце</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-card" data-reveal>
+          <div>
+            <div class="chip-row">
+              <span class="chip">Ретрит ТВ</span>
+              <span class="chip chip-ghost">18 липня — 2 серпня</span>
+            </div>
+            <h1 class="hero-title">Ретрит по&nbsp;спілкуванню</h1>
+            <p class="hero-desc">14 днів, щоб перестати грати роль і почати говорити так, щоб тебе справді чули. Без іспитів, без «треба» і без обов'язку лишатись до кінця.</p>
+          </div>
+ 
+          <div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">Дати</div>
+                <div class="value">18 липня — 2 серпня</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Формат</div>
+                <div class="value">Щодня, 12:00–20:00</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Перший день</div>
+                <div class="value">Вільний, без зобов'язань</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Локація</div>
+                <div class="value">Theta Space, Гончара 15/3</div>
+              </div>
+            </div>
+ 
+            <div class="hero-cta-row">
+              <a class="btn btn-dark" href="#reg">Зайняти місце →</a>
+              <span class="hero-note">Спершу можна просто прийти й подивитись</span>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="daycard" data-reveal>
+          <div class="daycard-head">
+            <span class="eyebrow">Як влаштований ретрит</span>
+            <p>Один вільний день на пробу, далі — 14 днів разом. Заходити можна, не плануючи наперед всі два тижні.</p>
+          </div>
+          <div>
+            <div class="strip">
+              <div class="day day-zero">0</div>
+              <div class="day">1</div><div class="day">2</div><div class="day">3</div>
+              <div class="day">4</div><div class="day">5</div><div class="day">6</div>
+              <div class="day">7</div><div class="day">8</div><div class="day">9</div>
+              <div class="day">10</div><div class="day">11</div><div class="day">12</div>
+              <div class="day">13</div><div class="day">14</div>
+            </div>
+            <div class="strip-legend">
+              <span><b>День 0</b> — вільний вхід</span>
+              <span><b>1–14</b> — інтенсив</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="daycard" data-reveal>
+          <div class="daycard-head">
+            <span class="eyebrow">Як влаштований ретрит</span>
+                      <p class="note">Заходити в потік можна з будь-якого дня — розклад побудований так, щоб не «випадати», навіть приєднавшись пізніше.</p>
+
+          </div>
+          <div class="strip">
+            <div class="day day-zero">0</div>
+            <div class="day">1</div><div class="day">2</div><div class="day">3</div>
+            <div class="day">4</div><div class="day">5</div><div class="day">6</div>
+            <div class="day">7</div><div class="day">8</div><div class="day">9</div>
+            <div class="day">10</div><div class="day">11</div><div class="day">12</div>
+            <div class="day">13</div><div class="day">14</div>
+          </div>
+          <div class="strip-legend">
+            <span><b>18 липня</b></span>
+            <span><b>2 серпня</b></span>
+          </div>
+        </div>
+
+  <!-- BLOCKERS -->
+  <section id="blockers">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Не зупиняйся</span>
+        <h2>Тобі не потрібно нічого готувати заздалегідь</h2>
+        <p>«ТВ» — це тренувальні вправи в спілкуванні, а не спорт чи іспит. Ось що це насправді означає.</p>
+      </div>
+      <div class="blockers-grid">
+        <div class="blocker" data-reveal>
+          <h3>Не потрібно нічого знати наперед</h3>
+          <p>Немає теорії для запам'ятовування і немає «правильних відповідей». Єдине, що знадобиться — прийти.</p>
+        </div>
+        <div class="blocker" data-reveal>
+          <h3>Це не про фізичну форму</h3>
+          <p>«Тренувальні вправи» — це вправи в живому діалозі: слухати, говорити, витримувати паузу. Вам тут нічого не загрожує.</p>
+        </div>
+        <div class="blocker" data-reveal>
+          <h3>Перший день — вільний</h3>
+          <p>Внесок і рішення про подальші дні обговорюються вже після того, як ти побачиш формат зсередини, а не до нього.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE DAY -->
+  <section id="free-day">
+    <div class="wrap">
+      <div class="freeday" data-reveal>
+        <div>
+          <span class="eyebrow">День 0</span>
+          <h2>Перший день нічого від тебе не вимагає</h2>
+          <p>Це день на пробу: побути в просторі, познайомитись з людьми і форматом, відчути, чи це «твоє»</p>
+          <ul class="freeday-list">
+            <li>Можна прийти й просто спостерігати</li>
+            <li>Вирішуй ПІСЛЯ, а не до</li>
+            <li>Жодних передоплат в перший день</li>
+          </ul>
+        </div>
+        <div class="freeday-visual">
+          <div class="big">1</div>
+          <div class="cap">День проби</div>
+          <hr>
+          <div class="big">0</div>
+          <div class="cap">Обов'язку</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section id="format">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Формат</span>
+        <h2>14 днів, один ритм</h2>
+        <p>Щодня з 12:00 до 20:00 у просторі Theta Space. Заходити можна на день, на кілька днів або на весь ретрит.</p>
+      </div>
+      <div class="format-grid">
+        <div class="format-list" data-reveal>
+          <div class="format-row">
+            <div class="format-time">12:00</div>
+            <div>
+              <h3>Збір і налаштування</h3>
+              <p>Коротка зустріч групи, без формальностей — просто час, щоб опинитись «тут».</p>
+            </div>
+          </div>
+          <div class="format-row">
+            <div class="format-time">Впродовж дня</div>
+            <div>
+              <h3>Вправи в живому спілкуванні</h3>
+              <p>Практика в парах і групі: чути, казати прямо, витримувати незручність.</p>
+            </div>
+          </div>
+          <div class="format-row">
+            <div class="format-time">20:00</div>
+            <div>
+              <h3>Завершення дня</h3>
+              <p>Час підбити, що відбулось — і вирішити, чи повертатись завтра.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT THETA SPACE -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about" data-reveal>
+        <div>
+          <span class="eyebrow">Theta Space</span>
+          <h2>Клуб живого спілкування в Києві</h2>
+          <p>Ретрит по спілкуванню — це частина ширшого проєкту Theta Space: простору, де зустрічі, лекції та курси побудовані навколо однієї ідеї — вчитися бути чесним у контакті з людьми.</p>
+          <p class="about-founders">Засновники клубу — Роман Кхан і Лада Чудненко</p>
+        </div>
+        <a class="btn btn-yellow" href="index.html">Про Theta Space →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSULT -->
+  <section id="consult">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Лишились питання</span>
+        <h2>Можна спитати перед тим, як вирішити</h2>
+      </div>
+      <div class="consult">
+        <div class="consult-box" data-reveal>
+          <h3>Написати нам напряму</h3>
+          <p>Коротка консультація в Telegram — про формат, місця, що взяти з собою.</p>
+          <a class="btn btn-dark" href="https://t.me/theta_space_club" target="_blank" rel="noopener">Написати в Telegram →</a>
+        </div>
+        <div class="consult-box" data-reveal>
+          <h3>Подивитись клуб зсередини</h3>
+          <p>Перш ніж вирішувати про ретрит, можна зазирнути на найближчу лекцію клубу — без запису на щось довше.</p>
+          <a class="btn btn-outline" href="index.html">До розкладу клубу →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="reg">
+    <div class="wrap">
+      <div class="cta-band" data-reveal>
+        <h2>Приходь на день 0 — рішення про решту чотирнадцяти буде вже твоїм</h2>
+        <p>Залиш заявку, і ми надішлемо деталі входу на перший, вільний день ретриту.</p>
+        <a class="btn btn-dark" href="https://t.me/theta_space_club" target="_blank" rel="noopener">Зайняти місце →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="muted">Theta Space · Гончара 15/3, Київ</div>
+    <div class="footer-links">
+      <a href="index.html">Головна</a>
+      <a href="index.html#club">Клуб</a>
+      <a href="https://instagram.com/theta_space_club" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll, respects prefers-reduced-motion via CSS above
+  const items = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
