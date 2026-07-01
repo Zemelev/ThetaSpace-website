@@ -357,6 +357,52 @@
   .ph-3{background:linear-gradient(155deg, var(--yellow) 0%, #e0a010 100%);}
   .ph-4{background:linear-gradient(155deg, #3a332b 0%, var(--ink) 100%);}
   .ph-3 .ph-label{color:rgba(26,22,18,0.65);}
+
+  .reg-form{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  max-width:560px; margin:0 auto; text-align:left;
+  }
+  .reg-field{display:flex; flex-direction:column; gap:6px;}
+  .reg-field-wide{grid-column:1/-1;}
+  .reg-field label{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.06em; text-transform:uppercase; color:rgba(26,22,18,0.7);
+  }
+  .reg-field input, .reg-field textarea{
+    width:100%; padding:12px 14px; border-radius:10px;
+    border:1.5px solid rgba(26,22,18,0.22); background:var(--paper);
+    font-family:'Inter',sans-serif; font-size:14px; color:var(--ink);
+  }
+  .reg-field input::placeholder, .reg-field textarea::placeholder{color:rgba(26,22,18,0.4);}
+  .reg-field input:focus, .reg-field textarea:focus{
+    outline:none; border-color:var(--ink);
+  }
+  .reg-field textarea{resize:vertical; min-height:78px;}
+  .reg-submit{
+    grid-column:1/-1; justify-content:center; border:none; cursor:pointer;
+    margin-top:2px; font-size:14px;
+  }
+  .reg-submit:disabled{opacity:0.65; cursor:default; pointer-events:none;}
+  .reg-spinner-row{display:flex; align-items:center; justify-content:center; gap:9px;}
+  .reg-spinner{
+    width:13px; height:13px; border:2px solid rgba(251,247,236,0.35);
+    border-top-color:var(--paper); border-radius:50%;
+    animation:reg-spin .7s linear infinite; flex-shrink:0;
+  }
+  @keyframes reg-spin{ to{ transform:rotate(360deg); } }
+  .reg-result{
+    grid-column:1/-1; max-width:560px; margin:16px auto 0; padding:14px 16px;
+    border-radius:12px; font-size:13.5px; line-height:1.5; text-align:left;
+    display:flex; gap:9px; align-items:flex-start; border:1px solid;
+  }
+  .reg-result[hidden]{display:none;}
+  .reg-result--success{ color:#2E4A26; border-color:rgba(46,74,38,0.3); background:rgba(46,74,38,0.09); }
+  .reg-result--error{ color:#6E2913; border-color:rgba(110,41,19,0.3); background:rgba(110,41,19,0.09); }
+  .reg-disclaimer{
+    max-width:560px; margin:16px auto 0; font-size:11.5px;
+    color:rgba(26,22,18,0.55); text-align:center; letter-spacing:0.02em;
+  }
+  @media(max-width:560px){ .reg-form{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -423,6 +469,9 @@
           <div class="daycard-head">
             <span class="eyebrow">Як влаштований ретрит</span>
             <p>Один вільний день на пробу, далі — 14 днів разом. Заходити можна, не плануючи наперед всі два тижні.</p>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-photo ph-3"><span class="ph-label">Фото ретриту</span></div>
           </div>
           <div>
             <div class="strip">
@@ -610,7 +659,7 @@
           <p>Ретрит по спілкуванню — це частина ширшого проєкту Theta Space: простору, де зустрічі, лекції та курси побудовані навколо однієї ідеї — вчитися бути чесним у контакті з людьми.</p>
           <p class="about-founders">Засновники клубу — Роман Кхан і Лада Чудненко</p>
         </div>
-        <a class="btn btn-yellow" href="index.html">Про Theta Space →</a>
+        <a class="btn btn-yellow" href="https://www.theta-space.org/">Про Theta Space →</a>
       </div>
     </div>
   </section>
@@ -624,14 +673,9 @@
       </div>
       <div class="consult">
         <div class="consult-box" data-reveal>
-          <h3>Написати нам напряму</h3>
-          <p>Коротка консультація в Telegram — про формат, місця, що взяти з собою.</p>
-          <a class="btn btn-dark" href="https://t.me/theta_space_club" target="_blank" rel="noopener">Написати в Telegram →</a>
-        </div>
-        <div class="consult-box" data-reveal>
           <h3>Подивитись клуб зсередини</h3>
           <p>Перш ніж вирішувати про ретрит, можна зазирнути на найближчу лекцію клубу — без запису на щось довше.</p>
-          <a class="btn btn-outline" href="index.html">До розкладу клубу →</a>
+          <a class="btn btn-outline" href="https://www.theta-space.org/club">До розкладу клубу →</a>
         </div>
       </div>
     </div>
@@ -641,9 +685,30 @@
   <section id="reg">
     <div class="wrap">
       <div class="cta-band" data-reveal>
-        <h2>Приходь на день 0 — рішення про решту чотирнадцяти буде вже твоїм</h2>
+        <h2>Чекаємо саме на тебе</h2>
         <p>Залиш заявку, і ми надішлемо деталі входу на перший, вільний день ретриту.</p>
-        <a class="btn btn-dark" href="https://t.me/theta_space_club" target="_blank" rel="noopener">Зайняти місце →</a>
+        <form class="reg-form" id="retreatForm" novalidate>
+          <div class="reg-field">
+            <label for="rf-name">Ім'я *</label>
+            <input id="rf-name" name="name" type="text" required placeholder="Ваше ім'я">
+          </div>
+          <div class="reg-field">
+            <label for="rf-phone">Телефон *</label>
+            <input id="rf-phone" name="phone" type="tel" required placeholder="+380 XX XXX XX XX">
+          </div>
+          <div class="reg-field reg-field-wide">
+            <label for="rf-email">Email</label>
+            <input id="rf-email" name="email" type="email" placeholder="email@example.com">
+          </div>
+          <div class="reg-field reg-field-wide">
+            <label for="rf-comment">Коментар або питання</label>
+            <textarea id="rf-comment" name="additional_info" rows="3" placeholder="Ваш коментар..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark reg-submit" id="rfSubmit">Зайняти місце →</button>
+        </form>
+
+        <div class="reg-result" id="rfResult" hidden></div>
+        <p class="reg-disclaimer">Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних</p>
       </div>
     </div>
   </section>
@@ -696,6 +761,59 @@
     track.addEventListener('scroll', updateNavState);
     window.addEventListener('resize', updateNavState);
     updateNavState();
+  }
+
+  // Мірить логіку components/forms/ContactForm.tsx, але тут статичний HTML,
+  // тож process.env.NEXT_PUBLIC_WP_REST_URL недоступний — постав реальний домен нижче.
+  const WP_REST_URL = 'https://honeydew-gaur-635630.hostingersite.com/wp-json'; // TODO
+
+  const retreatForm = document.getElementById('retreatForm');
+  const rfSubmit = document.getElementById('rfSubmit');
+  const rfResult = document.getElementById('rfResult');
+
+  if (retreatForm) {
+    retreatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: document.getElementById('rf-name').value.trim(),
+        phone: document.getElementById('rf-phone').value.trim(),
+        email: document.getElementById('rf-email').value.trim(),
+        additional_info: document.getElementById('rf-comment').value.trim(),
+        type: 'course',           // TODO: підтверди правильний тип для ретриту
+        source: 'retreat-tv-landing',
+        course_id: 'tv-retreat-2026',
+      };
+
+      rfResult.hidden = true;
+      rfSubmit.disabled = true;
+      rfSubmit.innerHTML = '<span class="reg-spinner-row"><span class="reg-spinner"></span>Відправляємо...</span>';
+
+      try {
+        const response = await fetch(`${WP_REST_URL}/liveclub/v1/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          rfResult.className = 'reg-result reg-result--success';
+          rfResult.innerHTML = '<span>✓</span><span>' + (data.message || 'Заявку отримано, скоро напишемо.') + '</span>';
+          retreatForm.reset();
+        } else {
+          rfResult.className = 'reg-result reg-result--error';
+          rfResult.innerHTML = '<span>✕</span><span>' + (data.message || 'Помилка відправки') + '</span>';
+        }
+      } catch (err) {
+        rfResult.className = 'reg-result reg-result--error';
+        rfResult.innerHTML = '<span>✕</span><span>Помилка з\'єднання. Спробуй ще раз.</span>';
+      } finally {
+        rfResult.hidden = false;
+        rfSubmit.disabled = false;
+        rfSubmit.textContent = 'Зайняти місце →';
+      }
+    });
   }
 </script>
 
