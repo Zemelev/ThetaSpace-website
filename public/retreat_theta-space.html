@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ретрит по спілкуванню (ТВ) — Theta Space</title>
+<meta name="description" content="Ретрит по спілкуванню від Theta Space у Києві. 18 липня — 2 серпня. Перший день вільний, без зобов'язань. Дізнайся про формат і займи місце.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:      #FBF7EC;
+    --paper-alt:  #F3ECDA;
+    --ink:        #1A1612;
+    --ink-soft:   #33291F;
+    --yellow:     #FFC42E;
+    --yellow-deep:#E8A80F;
+    --yellow-soft:#FFE39B;
+    --terracotta: #C4633A;
+    --terracotta-deep:#A24C29;
+    --terracotta-soft:#EBC3AE;
+    --muted:      #6B645B;
+    --line:       #E5DDD0;
+
+    --radius-lg: 30px;
+    --radius-md: 18px;
+    --radius-sm: 10px;
+
+    --grad-sun:  radial-gradient(120% 140% at 12% 8%, #FFD968 0%, var(--yellow) 40%, var(--yellow-deep) 100%);
+    --grad-ink:  linear-gradient(155deg, #241E18 0%, var(--ink) 55%, #2C2119 100%);
+    --grad-clay: linear-gradient(150deg, #D2764B 0%, var(--terracotta) 48%, var(--terracotta-deep) 100%);
+
+    --shadow-sm: 0 2px 8px rgba(26,22,18,.06);
+    --shadow-md: 0 14px 34px -14px rgba(26,22,18,.22);
+    --shadow-lg: 0 30px 70px -28px rgba(26,22,18,.40);
+    --glow-yellow: 0 20px 60px -18px rgba(232,168,15,.55);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* subtle paper grain for tactile depth */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+  main, header, footer{position:relative; z-index:1;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    line-height:1.04;
+    letter-spacing:-0.02em;
+  }
+  .eyebrow{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{
+    content:""; width:20px; height:2px; border-radius:2px;
+    background:currentColor; opacity:.6;
+  }
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{padding:104px 0;}
+  @media(max-width:720px){
+    section{padding:66px 0;}
+    .wrap{padding:0 20px;}
+  }
+
+  :focus-visible{outline:2.5px solid var(--terracotta); outline-offset:3px; border-radius:4px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,236,0.82);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid transparent;
+    transition:border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  header.scrolled{
+    border-bottom-color:var(--line);
+    box-shadow:0 6px 24px -18px rgba(26,22,18,.4);
+  }
+  .nav{
+    max-width:1180px; margin:0 auto; padding:15px 32px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  @media(max-width:720px){ .nav{padding:13px 20px;} }
+  .logo{display:flex; align-items:center; gap:11px;}
+  .logo-badge{
+    width:36px; height:36px; border-radius:10px;
+    background:var(--grad-sun);
+    box-shadow:var(--shadow-sm);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    flex-shrink:0;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .logo:hover .logo-badge{transform:rotate(-8deg) scale(1.06);}
+  .logo-text{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; line-height:1.1;}
+  .logo-sub{font-size:10px; letter-spacing:0.08em; color:var(--muted); text-transform:uppercase;}
+  .nav-links{display:flex; align-items:center; gap:20px;}
+  .nav-back{
+    font-size:13px; font-weight:500; color:var(--muted);
+    display:flex; align-items:center; gap:6px;
+    white-space:nowrap; transition:color .15s ease;
+  }
+  .nav-back:hover{color:var(--ink);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px;
+    padding:12px 22px; border-radius:999px;
+    transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, background .18s ease, color .18s ease;
+    white-space:nowrap;
+    position:relative;
+  }
+  .btn .arw{transition:transform .2s ease;}
+  .btn:hover .arw{transform:translateX(3px);}
+  .btn-dark{background:var(--ink); color:var(--paper); box-shadow:var(--shadow-sm);}
+  .btn-dark:hover{background:#000; transform:translateY(-2px); box-shadow:var(--shadow-md);}
+  .btn-yellow{background:var(--grad-sun); color:var(--ink); box-shadow:var(--shadow-sm);}
+  .btn-yellow:hover{transform:translateY(-2px); box-shadow:var(--glow-yellow);}
+  .btn-outline{border:1.5px solid var(--ink); color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--paper); transform:translateY(-2px);}
+  @media(max-width:640px){ .nav-back span{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:56px; padding-bottom:60px;}
+  .hero-grid{display:grid; grid-template-columns:1fr;}
+
+  .hero-card{
+    background:var(--grad-sun);
+    border-radius:var(--radius-lg);
+    padding:46px 42px 40px;
+    position:relative; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-between;
+    box-shadow:var(--glow-yellow);
+  }
+  @media(max-width:720px){ .hero-card{padding:36px 26px 32px;} }
+  /* floating ambient blobs */
+  .hero-card::after{
+    content:"";
+    position:absolute; right:-90px; top:-90px;
+    width:320px; height:320px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), rgba(255,255,255,0) 62%);
+    animation:float1 9s ease-in-out infinite;
+  }
+  .hero-card::before{
+    content:"";
+    position:absolute; left:-70px; bottom:-90px;
+    width:260px; height:260px; border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, rgba(26,22,18,.07), rgba(26,22,18,0) 65%);
+    animation:float2 11s ease-in-out infinite;
+  }
+  @keyframes float1{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(-18px,14px);} }
+  @keyframes float2{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(16px,-12px);} }
+
+  .chip-row{display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:1;}
+  .chip{
+    background:var(--ink); color:var(--paper);
+    padding:8px 15px; border-radius:999px;
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .chip-live::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    background:var(--yellow); box-shadow:0 0 0 0 rgba(255,196,46,.7);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,196,46,.7);}
+    70%{box-shadow:0 0 0 8px rgba(255,196,46,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,196,46,0);}
+  }
+  .chip-ghost{ background:rgba(26,22,18,0.10); color:var(--ink); }
+  .hero-title{
+    font-size:clamp(40px, 6vw, 66px);
+    margin:24px 0 18px;
+    position:relative; z-index:1;
+    letter-spacing:-0.03em;
+  }
+  .hero-title .accent{
+    position:relative; white-space:nowrap;
+  }
+  .hero-title .accent::after{
+    content:""; position:absolute; left:-2px; right:-2px; bottom:.06em; height:.30em;
+    background:var(--terracotta); opacity:.28; border-radius:4px; z-index:-1;
+    transform:scaleX(0); transform-origin:left;
+    animation:underline 1s .5s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes underline{ to{transform:scaleX(1);} }
+  .hero-desc{
+    font-size:clamp(15.5px,1.6vw,17.5px); color:rgba(26,22,18,0.80); max-width:54ch;
+    position:relative; z-index:1;
+  }
+  .info-grid{
+    margin-top:30px;
+    background:rgba(251,247,236,0.62);
+    backdrop-filter:blur(2px);
+    border:1px solid rgba(255,255,255,.5);
+    border-radius:var(--radius-md);
+    padding:20px 22px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px 24px;
+    position:relative; z-index:1;
+  }
+  @media(max-width:900px){ .info-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:420px){ .info-grid{grid-template-columns:1fr;} }
+  .info-item{position:relative; padding-left:14px;}
+  .info-item::before{
+    content:""; position:absolute; left:0; top:3px; width:4px; height:calc(100% - 4px);
+    border-radius:3px; background:var(--terracotta); opacity:.55;
+  }
+  .info-item .label{
+    font-family:'Space Grotesk',sans-serif; font-size:10.5px; font-weight:600;
+    letter-spacing:0.1em; text-transform:uppercase; color:rgba(26,22,18,0.58);
+    margin-bottom:4px;
+  }
+  .info-item .value{font-weight:600; font-size:15px;}
+  .hero-cta-row{
+    margin-top:28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    position:relative; z-index:1;
+  }
+  .hero-note{font-size:13.5px; color:rgba(26,22,18,0.68); max-width:44ch; line-height:1.45;}
+  .hero-note b{color:var(--ink); font-weight:600;}
+
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--paper-alt);
+    padding:16px 0; overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track{
+    display:flex; gap:34px; width:max-content;
+    animation:marquee 28s linear infinite;
+    font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:clamp(15px,2.4vw,20px); letter-spacing:-0.01em;
+    align-items:center;
+  }
+  .marquee-track span{color:var(--ink); white-space:nowrap;}
+  .marquee-track .dot{color:var(--terracotta);}
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+
+  /* ---------- NAV MENU ---------- */
+  .nav-menu{display:flex; gap:22px; font-size:13.5px; font-weight:500; color:var(--muted);}
+  .nav-menu a{transition:color .15s ease;}
+  .nav-menu a:hover{color:var(--ink);}
+  @media(max-width:880px){ .nav-menu{display:none;} }
+
+  /* ---------- WHY ---------- */
+  #why{padding-bottom:80px;}
+  .why-lead{
+    font-size:clamp(18px,2.3vw,23px); line-height:1.58;
+    color:var(--ink-soft); max-width:64ch;
+  }
+  .why-lead + .why-lead{margin-top:24px;}
+  .hl{
+    background:linear-gradient(transparent 60%, var(--yellow-soft) 60%);
+    padding:0 2px; border-radius:2px; box-decoration-break:clone; -webkit-box-decoration-break:clone;
+  }
+
+  /* ---------- SUPPORT NOTE ---------- */
+  .support-note{
+    margin-top:48px;
+    background:var(--grad-clay); color:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:42px 44px;
+    display:flex; gap:26px; align-items:flex-start;
+    position:relative; overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .support-note::after{
+    content:""; position:absolute; right:-80px; top:-80px; width:240px; height:240px;
+    border-radius:50%; background:radial-gradient(circle at 40% 40%, rgba(255,196,46,.35), transparent 62%);
+    pointer-events:none;
+  }
+  .support-icon{
+    width:54px; height:54px; border-radius:16px; flex-shrink:0;
+    background:rgba(251,247,236,.14); border:1px solid rgba(251,247,236,.3);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; z-index:1;
+  }
+  .support-icon svg{width:24px; height:24px; color:var(--yellow);}
+  .support-note p{
+    font-size:clamp(15px,1.8vw,17.5px); line-height:1.62;
+    color:rgba(251,247,236,.96); max-width:64ch;
+    position:relative; z-index:1;
+  }
+  @media(max-width:640px){ .support-note{padding:30px 24px; flex-direction:column; gap:18px;} }
+
+  /* ---------- SECTION HEAD ---------- */
+  .section-head{max-width:660px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--terracotta);}
+  .section-head h2{font-size:clamp(27px,4vw,40px); margin-top:14px;}
+  .section-head p{color:var(--muted); margin-top:14px; font-size:clamp(15px,1.6vw,16.5px);}
+
+
+
+  /* ---------- FORMAT ---------- */
+  .format-grid{display:grid; grid-template-columns:1fr; gap:0;}
+  .format-list{
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .format-row{
+    display:flex; gap:22px; padding:26px 0; border-top:1px solid var(--line);
+    position:relative;
+    transition:padding-left .25s ease;
+  }
+  .format-row:last-child{border-bottom:1px solid var(--line);}
+  .format-row:hover{padding-left:10px;}
+  .format-time{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    width:130px; flex-shrink:0; color:var(--terracotta);
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .format-dot{
+    width:11px; height:11px; border-radius:50%; background:var(--terracotta);
+    flex-shrink:0; box-shadow:0 0 0 4px rgba(196,99,58,.15);
+    align-self:center;
+  }
+  @media(max-width:560px){ .format-time{width:auto;} .format-dot{display:none;} }
+  .format-row h3{font-size:17px; margin-bottom:5px;}
+  .format-row p{font-size:14.5px; color:var(--muted);}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    background:var(--grad-ink); color:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:58px 50px;
+    display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center;
+    position:relative; overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .about::after{
+    content:"Θ"; position:absolute; right:-10px; bottom:-60px;
+    font-family:'Space Grotesk',sans-serif; font-size:280px; font-weight:700;
+    color:rgba(255,196,46,.06); line-height:1; pointer-events:none;
+  }
+  @media(max-width:820px){ .about{grid-template-columns:1fr; padding:40px 28px;} }
+  .about-body{position:relative; z-index:1;}
+  .about .eyebrow{color:var(--yellow);}
+  .about h2{font-size:clamp(24px,3.4vw,34px); margin:14px 0 14px;}
+  .about p{color:rgba(251,247,236,0.74); font-size:15.5px; max-width:52ch;}
+  .about-founders{font-size:13px; color:rgba(251,247,236,0.58); margin-top:16px;}
+  .about .btn{position:relative; z-index:1;}
+
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{
+    background:var(--grad-sun); border-radius:var(--radius-lg);
+    padding:64px 44px; text-align:center;
+    position:relative; overflow:hidden;
+    box-shadow:var(--glow-yellow);
+  }
+  @media(max-width:560px){ .cta-band{padding:44px 22px;} }
+  .cta-band::before{
+    content:""; position:absolute; left:-70px; top:-70px; width:240px; height:240px;
+    border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.4),transparent 65%);
+  }
+  .cta-band > *{position:relative; z-index:1;}
+  .cta-band .eyebrow{color:var(--terracotta-deep); justify-content:center; margin-bottom:14px;}
+  .cta-band .eyebrow::before{display:none;}
+  .cta-band h2{font-size:clamp(30px,5vw,48px); max-width:18ch; margin:0 auto 14px;}
+  .cta-band > p{color:rgba(26,22,18,0.78); max-width:44ch; margin:0 auto 30px; font-size:15.8px;}
+
+  /* ---------- FORM ---------- */
+  .reg-form{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    max-width:560px; margin:0 auto; text-align:left;
+  }
+  .reg-field{display:flex; flex-direction:column; gap:6px;}
+  .reg-field-wide{grid-column:1/-1;}
+  .reg-field label{
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:0.06em; text-transform:uppercase; color:rgba(26,22,18,0.72);
+  }
+  .reg-field input, .reg-field textarea{
+    width:100%; padding:13px 15px; border-radius:12px;
+    border:1.5px solid rgba(26,22,18,0.18); background:rgba(251,247,236,.85);
+    font-family:'Inter',sans-serif; font-size:14px; color:var(--ink);
+    transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .reg-field input::placeholder, .reg-field textarea::placeholder{color:rgba(26,22,18,0.4);}
+  .reg-field input:focus, .reg-field textarea:focus{
+    outline:none; border-color:var(--ink); background:var(--paper);
+    box-shadow:0 0 0 4px rgba(26,22,18,.10);
+  }
+  .reg-field textarea{resize:vertical; min-height:80px;}
+  .reg-submit{
+    grid-column:1/-1; justify-content:center; border:none; cursor:pointer;
+    margin-top:4px; font-size:15px; padding:15px 22px;
+  }
+  .reg-submit:disabled{opacity:0.65; cursor:default; pointer-events:none;}
+  .reg-spinner-row{display:flex; align-items:center; justify-content:center; gap:9px;}
+  .reg-spinner{
+    width:14px; height:14px; border:2px solid rgba(251,247,236,0.35);
+    border-top-color:var(--paper); border-radius:50%;
+    animation:reg-spin .7s linear infinite; flex-shrink:0;
+  }
+  @keyframes reg-spin{ to{ transform:rotate(360deg); } }
+  .reg-result{
+    grid-column:1/-1; max-width:560px; margin:16px auto 0; padding:14px 16px;
+    border-radius:12px; font-size:13.5px; line-height:1.5; text-align:left;
+    display:flex; gap:9px; align-items:flex-start; border:1px solid;
+  }
+  .reg-result[hidden]{display:none;}
+  .reg-result--success{ color:#2E4A26; border-color:rgba(46,74,38,0.3); background:rgba(46,74,38,0.12); }
+  .reg-result--error{ color:#6E2913; border-color:rgba(110,41,19,0.3); background:rgba(110,41,19,0.12); }
+  .reg-disclaimer{
+    max-width:560px; margin:16px auto 0; font-size:11.5px;
+    color:rgba(26,22,18,0.58); text-align:center; letter-spacing:0.02em;
+  }
+  @media(max-width:560px){ .reg-form{grid-template-columns:1fr;} }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+    margin-bottom:32px; flex-wrap:wrap;
+  }
+  .gallery-nav{display:flex; gap:10px;}
+  .gnav-btn{
+    width:46px; height:46px; border-radius:50%;
+    border:1.5px solid var(--ink); background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .15s ease, color .15s ease, transform .15s ease;
+    flex-shrink:0; color:var(--ink);
+  }
+  .gnav-btn:hover{background:var(--ink); color:var(--paper); transform:translateY(-2px);}
+  .gnav-btn:disabled{opacity:0.3; cursor:default; pointer-events:none;}
+  .gnav-btn svg{width:18px; height:18px;}
+
+  .gallery-track{
+    display:flex; gap:18px; overflow-x:auto; padding-bottom:8px;
+    scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .gallery-track::-webkit-scrollbar{display:none;}
+  .gallery-card{
+    flex:0 0 auto; width:288px; scroll-snap-align:start;
+  }
+  @media(max-width:560px){ .gallery-card{width:78vw;} }
+  .gallery-photo{
+    width:100%; aspect-ratio:4/5; border-radius:var(--radius-md);
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-end;
+    box-shadow:var(--shadow-md);
+  }
+  .gallery-photo img{
+    width:100%; height:100%; object-fit:cover; position:absolute; inset:0;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .gallery-card:hover .gallery-photo img{transform:scale(1.06);}
+  .gallery-photo::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 45%, rgba(26,22,18,.55));
+  }
+  .gallery-card .cap{margin-top:13px; font-size:13.5px; color:var(--muted);}
+  .gallery-card .cap b{color:var(--ink); font-weight:600;}
+
+  /* ph-N — градієнтний фолбек, поки нема реального фото */
+  .ph-1{background:linear-gradient(155deg, var(--ink) 0%, #33291f 60%, var(--terracotta) 140%);}
+  .ph-2{background:linear-gradient(155deg, var(--terracotta) 0%, #8c4227 100%);}
+  .ph-3{background:linear-gradient(155deg, var(--yellow) 0%, #e0a010 100%);}
+  .ph-4{background:linear-gradient(155deg, #3a332b 0%, var(--ink) 100%);}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:44px 0;}
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .footer-row .muted{color:var(--muted); font-size:13px;}
+  .footer-links{display:flex; gap:20px; font-size:13px; color:var(--muted); flex-wrap:wrap;}
+  .footer-links a{transition:color .15s ease;}
+  .footer-links a:hover{color:var(--ink);}
+
+  /* ---------- REVEAL ---------- */
+  [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);}
+  [data-reveal].in{opacity:1; transform:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    .hero-card::after,.hero-card::before,.marquee-track,.chip-live::before,
+    .hero-title .accent::after{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="nav">
+    <a class="logo" href="https://www.theta-space.org/retreat-tv.html" aria-label="Theta Space — на головну">
+      <div class="logo-badge">Θ</div>
+      <div>
+        <div class="logo-text">Theta Space</div>
+        <div class="logo-sub">Клуб живого спілкування</div>
+      </div>
+    </a>
+    <nav class="nav-menu" aria-label="Розділи сторінки">
+      <a href="#why">Для чого</a>
+      <a href="#format">Формат</a>
+      <a href="#gallery">Атмосфера</a>
+      <a href="#about">Клуб</a>
+    </nav>
+    <div class="nav-links">
+      <a class="nav-back" href="https://www.theta-space.org/about">↗ <span>До Theta Space</span></a>
+      <a class="btn btn-dark" href="#reg">Зайняти місце</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-card" data-reveal>
+          <div>
+            <div class="chip-row">
+              <span class="chip chip-live">18 липня — 2 серпня</span>
+            </div>
+            <h1 class="hero-title">Ретрит по&nbsp;<span class="accent">спілкуванню</span></h1>
+            <p class="hero-desc">Навчіться бути тут і зараз, чути інших і бути почутим. Два тижні простих, але глибоких вправ, що змінюють якість спілкування та внутрішній стан.</p>
+          </div>
+
+          <div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="label">Дати</div>
+                <div class="value">18 липня — 2 серпня</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Формат</div>
+                <div class="value">Щодня, 12:00–20:00</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Перший день</div>
+                <div class="value">Вільний, без зобов'язань</div>
+              </div>
+              <div class="info-item">
+                <div class="label">Локація</div>
+                <div class="value">Київ, Гончара 15/3 (Theta Space)</div>
+              </div>
+            </div>
+
+            <div class="hero-cta-row">
+              <a class="btn btn-dark" href="#reg">Зайняти місце <span class="arw">→</span></a>
+              <span class="hero-note"><b>Гнучкий формат участі:</b> доєднатися можна в будь-який день. Ви самі обираєте темп і тривалість участі.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>чути</span><span class="dot">•</span>
+      <span>говорити прямо</span><span class="dot">•</span>
+      <span>бути собою</span><span class="dot">•</span>
+      <span>жива група</span><span class="dot">•</span>
+      <span>без ролей</span><span class="dot">•</span>
+      <span>витримати паузу</span><span class="dot">•</span>
+      <span>справжній контакт</span><span class="dot">•</span>
+      <span>чути</span><span class="dot">•</span>
+      <span>говорити прямо</span><span class="dot">•</span>
+      <span>бути собою</span><span class="dot">•</span>
+      <span>жива група</span><span class="dot">•</span>
+      <span>без ролей</span><span class="dot">•</span>
+      <span>витримати паузу</span><span class="dot">•</span>
+      <span>справжній контакт</span><span class="dot">•</span>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="margin-bottom:30px;">
+        <span class="eyebrow">Для чого цей ретрит</span>
+      </div>
+      <div data-reveal>
+        <p class="why-lead">Ми щодня спілкуємося — але не завжди відчуваємо, що нас <span class="hl">справді чують і розуміють</span>. Часто заважають напруга, невпевненість, звичка відволікатися або думати про те, що сказати далі.</p>
+        <p class="why-lead">Цей ретрит — це <span class="hl">14 днів практики</span>, які допомагають бути уважнішим до себе й інших, спокійніше реагувати в розмові та легше встановлювати справжній контакт. Без складної теорії — лише прості вправи, ефект яких ви помітите не лише під час ретриту, а й у повсякденному житті.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section id="format">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Формат</span>
+        <h2>14 днів, один ритм</h2>
+        <p>Щодня з 12:00 до 20:00 у просторі Theta Space. Заходити можна на день, на кілька днів або на весь ретрит.</p>
+      </div>
+      <div class="format-grid">
+        <div class="format-list" data-reveal>
+          <div class="format-row">
+            <div class="format-time"><span class="format-dot"></span>12:00</div>
+            <div>
+              <h3>Збір і налаштування</h3>
+              <p>Коротка зустріч групи, без формальностей — просто час, щоб опинитись «тут».</p>
+            </div>
+          </div>
+          <div class="format-row">
+            <div class="format-time"><span class="format-dot"></span>Впродовж дня</div>
+            <div>
+              <h3>Вправи в живому спілкуванні</h3>
+              <p>Практика в парах і групі: чути, казати прямо, витримувати незручність.</p>
+            </div>
+          </div>
+          <div class="format-row">
+            <div class="format-time"><span class="format-dot"></span>20:00</div>
+            <div>
+              <h3>Завершення дня</h3>
+              <p>Час підбити, що відбулось — і вирішити, чи повертатись завтра.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-note" data-reveal>
+        <div class="support-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <p>Вас супроводжують досвідчені супервайзери, які допомагають на кожному етапі практики. Без оцінок, без конкуренції, без тиску — лише безпечний простір для навчання, атмосфера довіри й поваги та коло людей, з якими легко бути собою.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY / АТМОСФЕРА -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="gallery-head">
+        <div class="section-head" style="margin-bottom:0;" data-reveal>
+          <span class="eyebrow">Атмосфера</span>
+          <h2>З попередніх ретритів ТВ</h2>
+          <p>Живі кадри з минулих груп — щоб було зрозуміліше, у який простір ти йдеш.</p>
+        </div>
+        <div class="gallery-nav">
+          <button class="gnav-btn" id="galleryPrev" type="button" aria-label="Попередні фото">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="gnav-btn" id="galleryNext" type="button" aria-label="Наступні фото">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!--
+        TODO(фото): поклади реальні фото в папку photos/ з іменами tv-01.jpg … tv-06.jpg
+        (рекомендовано WebP/JPG до 300 КБ, вертикальні 4:5). Якщо файлу нема —
+        картка автоматично показує брендовий градієнт-плейсхолдер.
+      -->
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-card">
+          <div class="gallery-photo ph-1"><img src="photos/tv-01.jpg" alt="Коло знайомства на ретриті ТВ" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Коло знайомства</b> · перший день</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-4"><img src="photos/tv-011.jpg" alt="Eye-contact" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Eye-contact</b> · день 2</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-2"><img src="photos/tv-02.jpg" alt="Вправа в парах під час практики" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Вправа в парах</b> · день 4</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-3"><img src="photos/tv-03.jpg" alt="Пауза між блоками практики" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Пауза між блоками</b> · день 7</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-4"><img src="photos/tv-04.jpg" alt="Групова вправа у просторі Theta Space" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Групова вправа</b> · день 9</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-1"><img src="photos/tv-05.jpg" alt="Вечірнє коло учасників" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Вечірнє коло</b> · день 12</p>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-photo ph-2"><img src="photos/tv-06.jpg" alt="Завершення ретриту, спільне фото" loading="lazy" onerror="this.remove()"></div>
+          <p class="cap"><b>Завершення</b> · день 14</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT THETA SPACE -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about" data-reveal>
+        <div class="about-body">
+          <span class="eyebrow">Theta Space</span>
+          <h2>Клуб живого спілкування в Києві</h2>
+          <p>Ретрит по спілкуванню — це частина ширшого проєкту Theta Space: простору, де зустрічі, лекції та курси побудовані навколо однієї ідеї — вчитися бути чесним у контакті з людьми.</p>
+          <p class="about-founders">Засновники клубу — Роман Кхан і Лада Чудненко</p>
+        </div>
+        <a class="btn btn-yellow" href="https://instagram.com/theta_space_club" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Ми в Instagram <span class="arw">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FINAL CTA -->
+  <section id="reg">
+    <div class="wrap">
+      <div class="cta-band" data-reveal>
+        <span class="eyebrow">Займи місце</span>
+        <h2>Чекаємо саме на тебе</h2>
+        <p>Залиш заявку, і ми надішлемо деталі входу на перший, вільний день ретриту.</p>
+        <form class="reg-form" id="retreatForm" novalidate>
+          <div class="reg-field">
+            <label for="rf-name">Ім'я *</label>
+            <input id="rf-name" name="name" type="text" required placeholder="Ваше ім'я">
+          </div>
+          <div class="reg-field">
+            <label for="rf-phone">Телефон *</label>
+            <input id="rf-phone" name="phone" type="tel" required placeholder="+380 XX XXX XX XX">
+          </div>
+          <div class="reg-field reg-field-wide">
+            <label for="rf-email">Email</label>
+            <input id="rf-email" name="email" type="email" placeholder="email@example.com">
+          </div>
+          <div class="reg-field reg-field-wide">
+            <label for="rf-comment">Коментар або питання</label>
+            <textarea id="rf-comment" name="additional_info" rows="3" placeholder="Ваш коментар..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark reg-submit" id="rfSubmit">Зайняти місце <span class="arw">→</span></button>
+        </form>
+
+        <div class="reg-result" id="rfResult" hidden></div>
+        <p class="reg-disclaimer">Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="muted">Theta Space · Гончара 15/3, Київ</div>
+    <div class="footer-links">
+      <a href="index.html">Головна</a>
+      <a href="index.html#club">Клуб</a>
+      <a href="https://instagram.com/theta_space_club" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow on scroll
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  // Reveal-on-scroll, respects prefers-reduced-motion via CSS above
+  const items = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('in'));
+  }
+
+  // Gallery carousel
+  const track = document.getElementById('galleryTrack');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  if (track && prevBtn && nextBtn) {
+    const scrollByCard = () => {
+      const card = track.querySelector('.gallery-card');
+      return card ? card.getBoundingClientRect().width + 18 : 300;
+    };
+    prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollByCard(), behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollByCard(), behavior: 'smooth' }));
+
+    const updateNavState = () => {
+      const max = track.scrollWidth - track.clientWidth - 4;
+      prevBtn.disabled = track.scrollLeft <= 4;
+      nextBtn.disabled = track.scrollLeft >= max;
+    };
+    track.addEventListener('scroll', updateNavState, { passive:true });
+    window.addEventListener('resize', updateNavState);
+    window.addEventListener('load', updateNavState);
+    updateNavState();
+  }
+
+  // Мірить логіку components/forms/ContactForm.tsx, але тут статичний HTML,
+  // тож process.env.NEXT_PUBLIC_WP_REST_URL недоступний — постав реальний домен нижче.
+  const WP_REST_URL = 'https://honeydew-gaur-635630.hostingersite.com/wp-json'; // TODO
+
+  const retreatForm = document.getElementById('retreatForm');
+  const rfSubmit = document.getElementById('rfSubmit');
+  const rfResult = document.getElementById('rfResult');
+
+  if (retreatForm) {
+    retreatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: document.getElementById('rf-name').value.trim(),
+        phone: document.getElementById('rf-phone').value.trim(),
+        email: document.getElementById('rf-email').value.trim(),
+        additional_info: document.getElementById('rf-comment').value.trim(),
+        type: 'course',           // TODO: підтверди правильний тип для ретриту
+        source: 'retreat-tv-landing',
+        course_id: 'tv-retreat-2026',
+      };
+
+      rfResult.hidden = true;
+      rfSubmit.disabled = true;
+      rfSubmit.innerHTML = '<span class="reg-spinner-row"><span class="reg-spinner"></span>Відправляємо...</span>';
+
+      try {
+        const response = await fetch(`${WP_REST_URL}/liveclub/v1/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          rfResult.className = 'reg-result reg-result--success';
+          rfResult.innerHTML = '<span>✓</span><span>' + (data.message || 'Заявку отримано, скоро напишемо.') + '</span>';
+          retreatForm.reset();
+        } else {
+          rfResult.className = 'reg-result reg-result--error';
+          rfResult.innerHTML = '<span>✕</span><span>' + (data.message || 'Помилка відправки') + '</span>';
+        }
+      } catch (err) {
+        rfResult.className = 'reg-result reg-result--error';
+        rfResult.innerHTML = '<span>✕</span><span>Помилка з\'єднання. Спробуй ще раз.</span>';
+      } finally {
+        rfResult.hidden = false;
+        rfSubmit.disabled = false;
+        rfSubmit.innerHTML = 'Зайняти місце <span class="arw">→</span>';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
